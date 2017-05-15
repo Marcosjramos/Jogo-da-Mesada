@@ -20,25 +20,29 @@ import org.json.JSONObject;
  * @author cassio
  */
 public class ConexaoServidor extends Thread {
-
+        ObjectOutputStream saida;
+        ObjectInputStream entrada;
+        JSONObject j;
     public void run() {
         System.out.println("Entrou");
-        try (Socket conexao = new Socket("40.0.0.105", 1234);) {
+        try (Socket conexao = new Socket("192.168.1.157", 1234);) {
             System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
-            ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
-             ObjectInputStream entrada = new ObjectInputStream(conexao.getInputStream());
+            saida = new ObjectOutputStream(conexao.getOutputStream());
+            entrada = new ObjectInputStream(conexao.getInputStream());
             saida.flush();
-            JSONObject j = new JSONObject();
+            j = new JSONObject();
             j.put("status", 1); // buscar salas
             saida.writeObject(j.toString());
             String data = (String) entrada.readObject();
             j = new JSONObject(data);
+            
             if (j.getInt("status") == 0){
                 System.out.println("Nenhuma sala encontrada");
             } else {
                 JSONArray ja = new JSONArray(data);
                 System.out.println(ja.toString());
             }
+            
             System.out.println(data);
             saida.close();
             conexao.close();
@@ -49,6 +53,18 @@ public class ConexaoServidor extends Thread {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConexaoServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public JSONObject buscarSalas(int op) throws JSONException, IOException, ClassNotFoundException{
+       
+        switch (op) {
+            case 1: // Listar salas
+                  String data = (String) entrada.readObject();
+                  j = new JSONObject(data);
+                  return j;
+                //break;
+        }
+        return null;
     }
     
  

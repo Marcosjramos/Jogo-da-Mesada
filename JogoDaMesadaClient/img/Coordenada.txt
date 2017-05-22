@@ -1,0 +1,255 @@
+QUADRO PARTIDA
+        jogador1.setBounds(185, 104, 50, 50);
+        jogador2.setBounds(185, 139, 50, 50);
+        jogador3.setBounds(185, 174, 50, 50);
+        jogador4.setBounds(240, 104, 50, 50);
+        jogador5.setBounds(240, 139, 50, 50);
+        jogador6.setBounds(240, 174, 50, 50);
+
+QUADRO 1
+        jogador1.setBounds(295, 104, 50, 50);
+        jogador2.setBounds(295, 139, 50, 50);
+        jogador3.setBounds(295, 174, 50, 50);
+        jogador4.setBounds(350, 104, 50, 50);
+        jogador5.setBounds(350, 139, 50, 50);
+        jogador6.setBounds(350, 174, 50, 50);
+
+QUADRO 2
+        jogador1.setBounds(410, 104, 50, 50);
+        jogador2.setBounds(410, 139, 50, 50);
+        jogador3.setBounds(410, 174, 50, 50);
+        jogador4.setBounds(465, 104, 50, 50);
+        jogador5.setBounds(465, 139, 50, 50);
+        jogador6.setBounds(465, 174, 50, 50);
+
+QUADRO 3
+        jogador1.setBounds(520, 104, 50, 50);
+        jogador2.setBounds(520, 139, 50, 50);
+        jogador3.setBounds(520, 174, 50, 50);
+        jogador4.setBounds(575, 104, 50, 50);
+        jogador5.setBounds(575, 139, 50, 50);
+        jogador6.setBounds(575, 174, 50, 50);
+
+QUADRO 4
+        jogador1.setBounds(630, 104, 50, 50);
+        jogador2.setBounds(630, 139, 50, 50);
+        jogador3.setBounds(630, 174, 50, 50);
+        jogador4.setBounds(685, 104, 50, 50);
+        jogador5.setBounds(685, 139, 50, 50);
+        jogador6.setBounds(685, 174, 50, 50);
+
+QUADRO 5
+        jogador1.setBounds(742, 104, 50, 50);
+        jogador2.setBounds(742, 139, 50, 50);
+        jogador3.setBounds(742, 174, 50, 50);
+        jogador4.setBounds(798, 104, 50, 50);
+        jogador5.setBounds(798, 139, 50, 50);
+        jogador6.setBounds(798, 174, 50, 50);
+
+QUADRO 6
+        jogador1.setBounds(854, 104, 50, 50);
+        jogador2.setBounds(854, 139, 50, 50);
+        jogador3.setBounds(854, 174, 50, 50);
+        jogador4.setBounds(910, 104, 50, 50);
+        jogador5.setBounds(910, 139, 50, 50);
+        jogador6.setBounds(910, 174, 50, 50);
+
+QUADRO 7
+        jogador1.setBounds(185, 218, 50, 50);
+        jogador2.setBounds(185, 254, 50, 50);
+        jogador3.setBounds(185, 288, 50, 50);
+        jogador4.setBounds(240, 218, 50, 50);
+        jogador5.setBounds(240, 254, 50, 50);
+        jogador6.setBounds(240, 288, 50, 50);
+
+QUADRO 8
+        jogador1.setBounds(295, 218, 50, 50);
+        jogador2.setBounds(295, 254, 50, 50);
+        jogador3.setBounds(295, 288, 50, 50);
+        jogador4.setBounds(350, 218, 50, 50);
+        jogador5.setBounds(350, 254, 50, 50);
+        jogador6.setBounds(350, 288, 50, 50);
+
+QUADRO 9
+        jogador1.setBounds(410, 218, 50, 50);
+        jogador2.setBounds(410, 254, 50, 50);
+        jogador3.setBounds(410, 288, 50, 50);
+        jogador4.setBounds(465, 218, 50, 50);
+        jogador5.setBounds(465, 254, 50, 50);
+        jogador6.setBounds(465, 288, 50, 50);
+
+QUADRO 10
+        jogador1.setBounds(520, 218, 50, 50);
+        jogador2.setBounds(520, 254, 50, 50);
+        jogador3.setBounds(520, 288, 50, 50);
+        jogador4.setBounds(575, 218, 50, 50);
+        jogador5.setBounds(575, 254, 50, 50);
+        jogador6.setBounds(575, 288, 50, 50);
+
+QUADRO 11
+        jogador1.setBounds(630, 218, 50, 50);
+        jogador2.setBounds(630, 254, 50, 50);
+        jogador3.setBounds(630, 288, 50, 50);
+        jogador4.setBounds(685, 218, 50, 50);
+        jogador5.setBounds(685, 254, 50, 50);
+        jogador6.setBounds(685, 288, 50, 50);
+
+QUADRO 12
+        jogador1.setBounds(742, 218, 50, 50);
+        jogador2.setBounds(742, 254, 50, 50);
+        jogador3.setBounds(742, 288, 50, 50);
+        jogador4.setBounds(798, 218, 50, 50);
+        jogador5.setBounds(798, 254, 50, 50);
+        jogador6.setBounds(798, 288, 50, 50);
+
+QUADRO 13
+        jogador1.setBounds(854, 218, 50, 50);
+        jogador2.setBounds(854, 254, 50, 50);
+        jogador3.setBounds(854, 288, 50, 50);
+        jogador4.setBounds(910, 218, 50, 50);
+        jogador5.setBounds(910, 254, 50, 50);
+        jogador6.setBounds(910, 288, 50, 50);
+
+QUADRO 14
+        jogador1.setBounds(185, 330, 50, 50);
+        jogador2.setBounds(185, 366, 50, 50);
+        jogador3.setBounds(185, 400, 50, 50);
+        jogador4.setBounds(240, 330, 50, 50);
+        jogador5.setBounds(240, 366, 50, 50);
+        jogador6.setBounds(240, 400, 50, 50);
+
+QUADRO 15
+        jogador1.setBounds(295, 330, 50, 50);
+        jogador2.setBounds(295, 366, 50, 50);
+        jogador3.setBounds(295, 400, 50, 50);
+        jogador4.setBounds(350, 330, 50, 50);
+        jogador5.setBounds(350, 366, 50, 50);
+        jogador6.setBounds(350, 400, 50, 50);
+
+QUADRO 16
+        jogador1.setBounds(410, 330, 50, 50);
+        jogador2.setBounds(410, 366, 50, 50);
+        jogador3.setBounds(410, 400, 50, 50);
+        jogador4.setBounds(465, 330, 50, 50);
+        jogador5.setBounds(465, 366, 50, 50);
+        jogador6.setBounds(465, 400, 50, 50);
+
+QUADRO 17
+        jogador1.setBounds(520, 330, 50, 50);
+        jogador2.setBounds(520, 366, 50, 50);
+        jogador3.setBounds(520, 400, 50, 50);
+        jogador4.setBounds(575, 330, 50, 50);
+        jogador5.setBounds(575, 366, 50, 50);
+        jogador6.setBounds(575, 400, 50, 50);
+
+QUADRO 18
+        jogador1.setBounds(630, 330, 50, 50);
+        jogador2.setBounds(630, 366, 50, 50);
+        jogador3.setBounds(630, 400, 50, 50);
+        jogador4.setBounds(685, 330, 50, 50);
+        jogador5.setBounds(685, 366, 50, 50);
+        jogador6.setBounds(685, 400, 50, 50);
+
+QUADRO 19
+        jogador1.setBounds(742, 330, 50, 50);
+        jogador2.setBounds(742, 366, 50, 50);
+        jogador3.setBounds(742, 400, 50, 50);
+        jogador4.setBounds(798, 330, 50, 50);
+        jogador5.setBounds(798, 366, 50, 50);
+        jogador6.setBounds(798, 400, 50, 50);
+
+QUADRO 20
+        jogador1.setBounds(854, 330, 50, 50);
+        jogador2.setBounds(854, 366, 50, 50);
+        jogador3.setBounds(854, 400, 50, 50);
+        jogador4.setBounds(910, 330, 50, 50);
+        jogador5.setBounds(910, 366, 50, 50);
+        jogador6.setBounds(910, 400, 50, 50);
+
+QUADRO 21
+        jogador1.setBounds(185, 442, 50, 50);
+        jogador2.setBounds(185, 478, 50, 50);
+        jogador3.setBounds(185, 512, 50, 50);
+        jogador4.setBounds(240, 442, 50, 50);
+        jogador5.setBounds(240, 478, 50, 50);
+        jogador6.setBounds(240, 512, 50, 50);
+
+QUADRO 22
+        jogador1.setBounds(295, 442, 50, 50);
+        jogador2.setBounds(295, 478, 50, 50);
+        jogador3.setBounds(295, 512, 50, 50);
+        jogador4.setBounds(350, 442, 50, 50);
+        jogador5.setBounds(350, 478, 50, 50);
+        jogador6.setBounds(350, 512, 50, 50);
+
+QUADRO 23
+        jogador1.setBounds(410, 442, 50, 50);
+        jogador2.setBounds(410, 478, 50, 50);
+        jogador3.setBounds(410, 512, 50, 50);
+        jogador4.setBounds(465, 442, 50, 50);
+        jogador5.setBounds(465, 478, 50, 50);
+        jogador6.setBounds(465, 512, 50, 50);
+
+QUADRO 24
+        jogador1.setBounds(520, 442, 50, 50);
+        jogador2.setBounds(520, 478, 50, 50);
+        jogador3.setBounds(520, 512, 50, 50);
+        jogador4.setBounds(575, 442, 50, 50);
+        jogador5.setBounds(575, 478, 50, 50);
+        jogador6.setBounds(575, 512, 50, 50);
+
+QUADRO 25
+        jogador1.setBounds(630, 442, 50, 50);
+        jogador2.setBounds(630, 478, 50, 50);
+        jogador3.setBounds(630, 512, 50, 50);
+        jogador4.setBounds(685, 442, 50, 50);
+        jogador5.setBounds(685, 478, 50, 50);
+        jogador6.setBounds(685, 512, 50, 50);
+
+QUADRO 26
+        jogador1.setBounds(742, 442, 50, 50);
+        jogador2.setBounds(742, 478, 50, 50);
+        jogador3.setBounds(742, 512, 50, 50);
+        jogador4.setBounds(798, 442, 50, 50);
+        jogador5.setBounds(798, 478, 50, 50);
+        jogador6.setBounds(798, 512, 50, 50);
+
+QUADRO 27
+        jogador1.setBounds(854, 442, 50, 50);
+        jogador2.setBounds(854, 478, 50, 50);
+        jogador3.setBounds(854, 512, 50, 50);
+        jogador4.setBounds(910, 442, 50, 50);
+        jogador5.setBounds(910, 478, 50, 50);
+        jogador6.setBounds(910, 512, 50, 50);
+
+QUADRO 28
+        jogador1.setBounds(185, 554, 50, 50);
+        jogador2.setBounds(185, 590, 50, 50);
+        jogador3.setBounds(185, 624, 50, 50);
+        jogador4.setBounds(240, 554, 50, 50);
+        jogador5.setBounds(240, 590, 50, 50);
+        jogador6.setBounds(240, 624, 50, 50);
+
+QUADRO 29
+        jogador1.setBounds(295, 554, 50, 50);
+        jogador2.setBounds(295, 590, 50, 50);
+        jogador3.setBounds(295, 624, 50, 50);
+        jogador4.setBounds(350, 554, 50, 50);
+        jogador5.setBounds(350, 590, 50, 50);
+        jogador6.setBounds(350, 624, 50, 50);
+
+QUADRO 30
+        jogador1.setBounds(410, 554, 50, 50);
+        jogador2.setBounds(410, 590, 50, 50);
+        jogador3.setBounds(410, 624, 50, 50);
+        jogador4.setBounds(465, 554, 50, 50);
+        jogador5.setBounds(465, 590, 50, 50);
+        jogador6.setBounds(465, 624, 50, 50);
+
+QUADRO FIM
+        jogador1.setBounds(520, 554, 50, 50);
+        jogador2.setBounds(520, 590, 50, 50);
+        jogador3.setBounds(520, 624, 50, 50);
+        jogador4.setBounds(575, 554, 50, 50);
+        jogador5.setBounds(575, 590, 50, 50);
+        jogador6.setBounds(575, 624, 50, 50);

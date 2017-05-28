@@ -12,16 +12,12 @@ import java.util.List;
  * @author cassio
  */
 public class Sala {
+    
     private List<Player> players;
+    //private String adm;
     private String adm;
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
+    private int id;
+    private String nome;
 
     public String getAdm() {
         return adm;
@@ -31,4 +27,28 @@ public class Sala {
         this.adm = adm;
     }
     
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
 }

@@ -7,6 +7,7 @@ package jogo;
 
 import br.com.uefs.conexao.ConexaoP2P;
 import br.com.uefs.conexao.ConexaoServidor;
+import br.com.uefs.view.Painel;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,6 +23,8 @@ public class Jogo {
     /**
      * @param args the command line arguments
      */
+//    ConexaoServidor c = new ConexaoServidor();
+    Painel p = new Painel();
     public static void main(String[] args) {
         // TODO code application logic here
         int idCliente = 0;
@@ -29,7 +32,8 @@ public class Jogo {
             System.out.println("[Criando Servidor...]");
             ServerSocket servidor = new ServerSocket(12345);
             System.out.println("[Servidor operando na porta 12345]");
-            new ConexaoServidor().start();
+           // new ConexaoServidor().start();
+         //   c.setOp(1);
             while (true) {
                 System.out.println("[Esperando conexão...]");
                 Socket cliente = servidor.accept();

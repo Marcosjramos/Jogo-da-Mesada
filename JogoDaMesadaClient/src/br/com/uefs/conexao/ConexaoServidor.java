@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -24,7 +27,7 @@ public class ConexaoServidor extends Thread {
     //private JSONObject request;
     // private int op;
     private String salas;
-
+    
     private static ConexaoServidor uniqueInstance;
     public static ObjectOutputStream saida;
     public static ObjectInputStream entrada;

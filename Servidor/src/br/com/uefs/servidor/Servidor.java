@@ -5,13 +5,8 @@
  */
 package br.com.uefs.servidor;
 
-import br.com.uefs.model.Sala;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

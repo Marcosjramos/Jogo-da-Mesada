@@ -29,6 +29,7 @@ public class Game extends Thread {
     private Socket conexao; //conexão com cliente remoto
    
     public static final List<Sala> salas = new ArrayList<Sala>();
+    public static final List<Player> jogadores = new ArrayList<>();
 
     public Game(Socket conexao) {
         this.conexao = conexao;
@@ -40,20 +41,14 @@ public class Game extends Thread {
                 ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());) {
             String msg = "";
 
-            //List<Sala> salas = new ArrayList<Sala>();
             saida.flush();
-            //   System.out.println(entrada.readObject());
-            //msg = (String) entrada.readObject();
-            // recebe as informações necessárias
-           // JSONObject obj = new JSONObject();
+            
             try {
                 //System.out.println((String)entrada.readObject());
                 String a = entrada.readObject().toString();
                JSONObject obj = new JSONObject(a);
                 System.out.println(obj.toString());
-                //System.out.println(entrada.readObject());
-                //System.out.println(entrada.readObject().toString());
-                //String g = obj.getString("status");
+                
                 int status = obj.getInt("status");
                 //System.out.println(status);
                 switch (status) {
@@ -87,16 +82,7 @@ public class Game extends Thread {
                         players.add(p);
                         s.setPlayers(players);
                         salas.add(s);
-                     
-                        //System.out.println(s.getId());
-                        //Servidor.setSalas(Servidor.salas);
-                        //Gson gson = new Gson();
-                        //String ss = gson.toJson(salas);
-                     // System.out.println(ss);
-                        //saida.writeObject(gson.toJson(salas));
-                        /*JSONObject j = new JSONObject();
-                        j.put("status", 1);
-                        j.put("nome");*/
+               
                         System.out.println(listarSalas().toString());
                         saida.writeObject(listarSalas().toString());
                         saida.writeObject("EOT");
@@ -104,6 +90,15 @@ public class Game extends Thread {
                            JSONObject j = new JSONObject();
                            j.put("status", 0);
                         }
+                        break;
+                    case 3:
+                        System.out.println(obj.toString());
+                        Player p = new Player();
+                        p.setUsername(obj.getString("nome"));
+                        p.setId(jogadores.size());
+                        jogadores.add(p);
+                        Gson gson = new Gson();
+                        saida.writeObject(gson.toJson(p));
                         break;
                 }
 

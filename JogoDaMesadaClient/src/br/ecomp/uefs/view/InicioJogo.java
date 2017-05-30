@@ -91,7 +91,10 @@ public class InicioJogo extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+        /* se você usar jTextField1.getText() você captura  o valor digitado 
+         na caisa de texto  e  pode guarda  ou ultilizar no que precisar */
+        
+        System.out.println(jTextField1.getText());
     }                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         

@@ -7,7 +7,7 @@ package br.ecomp.uefs.view;
 
 /**
  *
- * @author marcos
+ * @author Marcos Ramos
  */
 public class InicioJogo extends javax.swing.JFrame {
       /**

@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author JhansenBarreto
+ * @author Marcos Ramos
  */
 public final class TabuleiroNovo extends JFrame {
     private final Container principal = getContentPane();
@@ -87,6 +87,8 @@ public final class TabuleiroNovo extends JFrame {
         }
         if(x == 1){
             jogador1.setBounds(295, 104, 50, 50);
+             JOptionPane.showMessageDialog(null, "Casa  da caratas correios  " );
+             // exemplo de  com vai ficar as outras cartas do jogo  o que você acha 
         }
         else if(x == 2){
             jogador1.setBounds(410, 104, 50, 50);
@@ -246,11 +248,41 @@ public final class TabuleiroNovo extends JFrame {
         jogar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(p == 31){
-                    p = -1;
+               // if(p == 31){
+               //     p = -1;
+              //  }
+              //  p++;
+               // setPosicao(p);
+                   if(p<23){
+                  Random random = new Random();
+                  int Dado = random.nextInt(6) + 1;
+                  JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado);
+                  p=p+Dado;
+                  setPosicao(p);
+                  
+               }else if(p>=23 ){
+                  Random ran = new Random();
+                  int num = ran.nextInt(4)+1;
+                  p=p+num;
+                  JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI : " + num);
+                  setPosicao(p);
+                   
+                 }else if(p==30){
+                   Random r = new Random();
+                   int n = r.nextInt(1)+1;
+                   p=p+n;
+                   JOptionPane.showMessageDialog(null, "VOCÊ CHEGOU NO FIM DO MÊS");
+                   if(p==31||p>=31){     
+                   JOptionPane.showMessageDialog(null, "VOCÊ CHEGOU NO FIM DO MÊS");
+                     } 
+                 }else{
+                   setPosicao(p); 
                 }
-                p++;
-                setPosicao(p);
+
+
+
+
+
             }
         });
     }

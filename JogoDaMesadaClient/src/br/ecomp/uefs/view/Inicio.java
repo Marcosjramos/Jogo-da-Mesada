@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author marcos ramos
+ * @author Marcos Ramos
  */
 public class Inicio extends javax.swing.JFrame {
 

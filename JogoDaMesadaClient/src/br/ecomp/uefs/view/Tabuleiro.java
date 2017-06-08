@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author marcos ramos
+ * @author Marcos Ramos
  */
 public class Tabuleiro extends javax.swing.JFrame {
 

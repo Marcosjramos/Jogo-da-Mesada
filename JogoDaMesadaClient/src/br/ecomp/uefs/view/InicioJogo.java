@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author marcos
+ * @author Marcos Ramos
  */
 public class InicioJogo extends javax.swing.JFrame {
 

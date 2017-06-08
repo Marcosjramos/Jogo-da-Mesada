@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author JhansenBarreto
+ * @author Marcos Ramos
  */
 public final class TabuleiroNovo extends JFrame {
     private final Container principal = getContentPane();
@@ -87,15 +87,24 @@ public final class TabuleiroNovo extends JFrame {
         }
         if(x == 1){
             jogador1.setBounds(295, 104, 50, 50);
+            JOptionPane.showMessageDialog(null,"CASA CORREIOS  ! " );
+            JOptionPane.showMessageDialog(null,"PUXE 1 CARTA DO TIPO CORREIOS!");
+             // exemplo de  com vai ficar as outras cartas do jogo  o que você acha 
         }
         else if(x == 2){
-            jogador1.setBounds(410, 104, 50, 50);
+           jogador1.setBounds(410, 104, 50, 50);
+           JOptionPane.showMessageDialog(null,"CASA COMPRAS E ENTRETENIMENTOS ! " );
+           JOptionPane.showMessageDialog(null,"PUXE 1 COMPRAS E ENTRETENIMENTOS !");
         }
         else if(x == 3){
             jogador1.setBounds(520, 104, 50, 50);
+            String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
+            int v = Integer.parseInt(valor);
+            JOptionPane.showMessageDialog(null, "VALOR INSERIDO COM SUCESSO: " + v);
         }
         else if(x == 4){
             jogador1.setBounds(630, 104, 50, 50);
+            JOptionPane.showMessageDialog(null,"PRÊMIO!- RETIRE $5.000 DO BANCO !");
         }
         else if(x == 5){
             jogador1.setBounds(742, 104, 50, 50);
@@ -246,11 +255,21 @@ public final class TabuleiroNovo extends JFrame {
         jogar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(p == 31){
-                    p = -1;
-                }
-                p++;
-                setPosicao(p);
+                Random random = new Random();
+                int Dado = random.nextInt(6) + 1; 
+                 p=p+Dado;
+                JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado); 
+
+                if(p>=31){ 
+                   p=1;
+                   JOptionPane.showMessageDialog(null, "VOCÊ CHEGOU NO FIM DO MÊS");  
+                   JOptionPane.showMessageDialog(null, "VOCÊ  VAI INICAR UM NOVO MÊS!");
+                   setPosicao(p);
+                  }else{
+                      
+                     setPosicao(p); 
+                  }
+
             }
         });
     }

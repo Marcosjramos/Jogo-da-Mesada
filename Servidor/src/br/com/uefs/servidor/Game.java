@@ -27,7 +27,7 @@ import org.json.JSONObject;
 public class Game extends Thread {
 
     private Socket conexao; //conexão com cliente remoto
-   
+
     public static final List<Sala> salas = new ArrayList<Sala>();
     public static final List<Player> jogadores = new ArrayList<>();
 
@@ -42,63 +42,111 @@ public class Game extends Thread {
             String msg = "";
 
             saida.flush();
-            
+
             try {
                 //System.out.println((String)entrada.readObject());
                 String a = entrada.readObject().toString();
-               JSONObject obj = new JSONObject(a);
+                JSONObject obj = new JSONObject(a);
                 System.out.println(obj.toString());
-                
+
                 int status = obj.getInt("status");
                 //System.out.println(status);
-                switch (status) {
-                    case 1: 
+                switch (status) {//Listar salas
+                    case 1: // Listar salas
                         //listarSalas(obj, saida);
                         saida.writeObject(listarSalas().toString());
                         //System.out.println("\n Pegou o status");
                         break;
-                    case 2:
-                      //  System.out.println("Teste  " + obj.toString());
+                    case 2: //Cadastrar uma sala
+                        //  System.out.println("Teste  " + obj.toString());
                         boolean verificar = false;
                         if (!salas.isEmpty()) {
-                            for (Sala mSala: salas){
-                                if (mSala.getAdm().equals(conexao.getInetAddress().toString())){
+                            for (Sala mSala : salas) {
+                                if (mSala.getAdm().equals(conexao.getInetAddress().toString())) {
                                     verificar = true;
                                     break;
                                 }
                             }
                         }
-                       // System.out.println(verificar);
+                        // System.out.println(verificar);
                         if (!verificar) {
-                        Sala s = new Sala();
-                        s.setId(salas.size());
-                        s.setNome(obj.getString("nome"));
-                        //s.setAdm(obj.getString("sala"));
-                        Player p = new Player();
-                        s.setAdm(conexao.getInetAddress().toString());
-                        //p.setUsername(obj.getString("nome"));
-                        p.setIp(conexao.getInetAddress().toString());
-                        List<Player> players = new ArrayList<>();
-                        players.add(p);
-                        s.setPlayers(players);
-                        salas.add(s);
-               
-                        System.out.println(listarSalas().toString());
-                        saida.writeObject(listarSalas().toString());
-                        saida.writeObject("EOT");
+                            Sala s = new Sala();
+                            s.setId(salas.size());
+                            s.setNome(obj.getString("nome"));
+                            //s.setAdm(obj.getString("sala"));
+                            Player p = new Player();
+                            s.setAdm(conexao.getInetAddress().toString());
+                            //p.setUsername(obj.getString("nome"));
+                            p.setIp(conexao.getInetAddress().toString());
+                            p.setUsername(obj.getString("username"));
+                            p.setId(obj.getInt("id"));
+                            List<Player> players = new ArrayList<>();
+                            players.add(p);
+                            s.setPlayers(players);
+                            salas.add(s);
+                            System.out.println(listarSalas().toString());
+                            saida.writeObject(listarSalas().toString());
+                            saida.writeObject("EOT");
                         } else {
-                           JSONObject j = new JSONObject();
-                           j.put("status", 0);
+                            JSONObject j = new JSONObject();
+                            j.put("status", 0);
                         }
                         break;
-                    case 3:
+                    case 3: // Cadastrar jogador
                         System.out.println(obj.toString());
                         Player p = new Player();
+                        p.setIp(conexao.getInetAddress().toString());
                         p.setUsername(obj.getString("nome"));
                         p.setId(jogadores.size());
                         jogadores.add(p);
                         Gson gson = new Gson();
                         saida.writeObject(gson.toJson(p));
+                        break;
+                    case 4: // entrar na sala
+                        //int id = obj.
+                        System.out.println(obj.toString());
+                        int espera = obj.getInt("espera");
+                        if (espera != 1) {
+                            // Player mPlay = null;
+                            Sala sala = null;
+                            for (Sala s : salas) {
+                                if (s.getId() == obj.getInt("sala")) {
+                                    List<Player> jogdores = s.getPlayers();
+                                    if (jogdores == null) {
+                                        jogdores = new ArrayList<>();
+                                    }
+                                    if (jogdores.size() < 6) {
+                                         Player player = new Player();
+                                         player.setId(obj.getInt("id"));
+                                         player.setIp(obj.getString("ip"));
+                                         player.setUsername(obj.getString("username"));
+                                         jogdores.add(player);
+                                         s.setPlayers(jogdores);
+                                         sala = s;
+                                         break;
+                                    }
+                                }
+                                //System.out.println(s.getId());
+                            }
+                            if (sala != null) {
+                                salas.remove(sala);
+                                salas.add(sala);
+                            }
+                            System.out.println(salas.size());
+                            saida.writeObject("1");
+                        }else {
+                              for (Sala s : salas) {
+                                if (s.getId() == obj.getInt("sala")) {
+                                    List<Player> jogdores = s.getPlayers();
+                                    if (jogdores.size() == 5) {
+                                        gson = new Gson();
+                                        saida.writeObject(gson.toJson(s.getPlayers()));
+                                    }else {
+                                        saida.writeObject("1");
+                                    }
+                                }
+                              }
+                        }
                         break;
                 }
 
@@ -122,7 +170,7 @@ public class Game extends Thread {
         JSONArray ja = new JSONArray();
         JSONObject j = new JSONObject();
         if (salas != null) {
-            for (Sala s: salas) {
+            for (Sala s : salas) {
                 j.put("nome", s.getNome());
                 j.put("id", s.getId());
                 j.put("n", s.getPlayers().size());

@@ -15,7 +15,7 @@ public class Sala {
     
     private List<Player> players;
     private String adm;
-
+ 
     public List<Player> getPlayers() {
         return players;
     }

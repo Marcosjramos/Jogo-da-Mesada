@@ -34,9 +34,9 @@ public class Inicio extends javax.swing.JFrame {
         dlm = new DefaultListModel();
         con = ConexaoServidor.getInstance(); // starta o jogador 
         //con.start();
-        
+
         JSONObject j = new JSONObject();
-        System.out.println();
+        //   System.out.println();
         try {
             j.put("status", 1);
             String msg = null;
@@ -48,7 +48,7 @@ public class Inicio extends javax.swing.JFrame {
                     if (ja.length() > 0) {
                         for (int i = 0; i < ja.length(); i++) {
                             JSONObject jo = ja.getJSONObject(i);
-                            inserirSala("Sala: " + jo.getString("nome") + " jogadores: " + jo.get("n"));
+                            inserirSala(jo.getInt("id") + " " + jo.getString("nome") + " jogadores: " + jo.get("n"));
                             //System.out.println(jo.toString());
                         }
                     } else {
@@ -113,7 +113,17 @@ public class Inicio extends javax.swing.JFrame {
         jButton2.setText("Entrar na Sala");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (JSONException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -179,9 +189,7 @@ public class Inicio extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton3)
-                                .addContainerGap())
-        );
-
+                                .addContainerGap()));
         pack();
     }
 
@@ -189,32 +197,38 @@ public class Inicio extends javax.swing.JFrame {
         String nomeSala = JOptionPane.showInputDialog(rootPane, "Digite o nome da sala:", "Jogo da Mesada", JOptionPane.QUESTION_MESSAGE);
         System.out.println(nomeSala);
         if (!nomeSala.equals("null")) {
-           
+
             //inserirSala(nomeSala);
             JSONObject j = new JSONObject();
             j.put("status", 2);
             j.put("nome", nomeSala);
-            
+            j.put("id", con.getPlayer().getId());
+            j.put("username", con.getPlayer().getUsername());
             String msg = con.comunicacao(j);
             dlm.clear();
-          if (msg!=null) {
-            JSONArray ja = new JSONArray(msg);
-           
-            for (int i=0; i < ja.length(); i++) {
-                JSONObject jo = ja.getJSONObject(i);       
-                 inserirSala("Sala: "+jo.getString("nome")+" jogadores: "+jo.get("n"));
+            if (msg != null) {
+                JSONArray ja = new JSONArray(msg);
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject jo = ja.getJSONObject(i);
+                    //  inserirSala("Sala: "+jo.getString("nome")+" jogadores: "+jo.get("n"));
+                    inserirSala(jo.getInt("id") + " " + jo.getString("nome") + " jogadores: " + jo.get("n"));
+                }
+            } else {
+                inserirSala("Cadastre uma sala");
             }
-          } else {
-              inserirSala("Cadastre uma sala");
-          }
         }
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println(jList1.getSelectedValue());
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException, InterruptedException {
+        //System.out.println(jList1.getSelectedValue());
+        //  JSONObject j = new JSONObject((String) jList1.getSelectedValue());
+        //j.put("status", 4);
+        //j.put("", value).
+        //System.out.println(j.toString());
         Font fonte = new Font("Tahoma", Font.BOLD, 24);
 
         if (jList1.getSelectedValue() != null) {
+
             JLabel label = new JLabel("AGUARDANDO JOGADORES...");
             jPanel1.removeAll();
             jPanel1.setLayout(new BorderLayout());
@@ -225,16 +239,63 @@ public class Inicio extends javax.swing.JFrame {
             jPanel1.add(label, BorderLayout.CENTER);
             jPanel1.repaint();
             jPanel1.revalidate();
+            //dispose();
+            System.out.println(jList1.getSelectedValue());
 
+            String Str = new String(jList1.getSelectedValue());
+            //Posição do caracter na string
+            int pos = Str.indexOf(" ");
+            //Substring iniciando em 0 até posição do caracter especial
+            String idS = Str.substring(0, pos);
+            Integer id = Integer.parseInt(idS);
+            JSONObject j = new JSONObject();
+            j.put("status", 4);
+            j.put("sala", id);
+            j.put("ip", con.getPlayer().getIp());
+            j.put("id", con.getPlayer().getId());
+            j.put("username", con.getPlayer().getUsername());
+
+            new Thread() {
+                @Override
+                public void run() {
+                    String s = "";
+                    int espera = 0;
+                    do {
+                        try {
+                            j.put("espera", espera);
+                            s = con.comunicacao(j);
+                            new Thread().sleep(100);
+                            if (espera == 0) {
+                                if (s.equals("1")) {
+                                    espera = 1;
+                                }
+                            }
+                        } catch (IOException ex) {
+                            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (JSONException ex) {
+                            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        System.out.println("TESTE");
+                    } while (s.equals("1"));
+                    //super.run(); //To change body of generated methods, choose Tools | Templates.
+                }
+
+            }.start();
+
+            //System.out.println(s);
             /* Tabuleiro tabuleiro = new Tabuleiro();
             tabuleiro.setNomeSala(jList1.getSelectedValue());
             tabuleiro.setVisible(true);
             dispose();
              */
-            TabuleiroNovo tabuleiro = new TabuleiroNovo();
-            tabuleiro.setNomeSala(jList1.getSelectedValue());
-            tabuleiro.setVisible(true);
-            dispose();
+            //TabuleiroNovo tabuleiro = new TabuleiroNovo();
+            //tabuleiro.setNomeSala(jList1.getSelectedValue());
+            //tabuleiro.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Antes de jogar, escolha ou das salas!");
         }

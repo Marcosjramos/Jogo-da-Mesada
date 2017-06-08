@@ -26,7 +26,8 @@ public class InicioJogo extends javax.swing.JFrame {
      * Creates new form TelaIniciar
      */
     static ConexaoServidor con;
-    private String nome;
+    
+    //static String nome;
     JTextField t = new JTextField();
 
     public InicioJogo() {
@@ -117,26 +118,29 @@ public class InicioJogo extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        //jTextField1.setText();
-        //nome = jTextField1.getText();
+        /* se você usar jTextField1.getText() você captura  o valor digitado 
+         na caisa de texto  e  pode guarda  ou ultilizar no que precisar */
 
+        
+        //System.out.println(nome);
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException {
-      
-        JSONObject j = new JSONObject();
-        j.put("status", 3);
-        j.put("nome", "game 1");
-        String s = con.comunicacao(j);
-        System.out.println(s);
-        Gson gson = new Gson();
-        Player p = gson.fromJson(s, Player.class);
-        
-        Inicio home = new Inicio();
-        home.setVisible(true);
-        dispose();
-
+         String nome = jTextField1.getText();
+       // System.out.println(nome);
+        if (nome != null) {
+            JSONObject j = new JSONObject();
+            j.put("status", 3);
+            j.put("nome", nome);
+            String s = con.comunicacao(j);
+            //System.out.println(s);
+            Gson gson = new Gson();
+            Player p = gson.fromJson(s, Player.class);
+            con.setPlayer(p);
+            Inicio home = new Inicio();
+            home.setVisible(true);
+            dispose();
+        }
     }
 
     /**

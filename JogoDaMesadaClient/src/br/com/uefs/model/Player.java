@@ -14,6 +14,15 @@ public class Player {
     private String username;
     private String ip;
     private int id;
+    private int pino;
+
+    public int getPino() {
+        return pino;
+    }
+
+    public void setPino(int pino) {
+        this.pino = pino;
+    }
 
     public int getId() {
         return id;

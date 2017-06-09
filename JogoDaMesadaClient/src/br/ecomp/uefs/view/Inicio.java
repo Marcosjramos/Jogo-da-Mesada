@@ -1,6 +1,7 @@
 package br.ecomp.uefs.view;
 
 import br.com.uefs.conexao.ConexaoServidor;
+import br.com.uefs.model.Player;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -240,7 +241,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel1.repaint();
             jPanel1.revalidate();
             //dispose();
-            System.out.println(jList1.getSelectedValue());
+           // System.out.println(jList1.getSelectedValue());
 
             String Str = new String(jList1.getSelectedValue());
             //Posição do caracter na string
@@ -264,7 +265,7 @@ public class Inicio extends javax.swing.JFrame {
                         try {
                             j.put("espera", espera);
                             s = con.comunicacao(j);
-                            new Thread().sleep(100);
+                            new Thread().sleep(1000);
                             if (espera == 0) {
                                 if (s.equals("1")) {
                                     espera = 1;
@@ -280,9 +281,23 @@ public class Inicio extends javax.swing.JFrame {
                             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        System.out.println("TESTE");
+                        //System.out.println("TESTE");
                     } while (s.equals("1"));
-                    //super.run(); //To change body of generated methods, choose Tools | Templates.
+                    
+                    try {
+                        JSONArray ja = new JSONArray(s);
+                        for (int i=0; ja.length() > 0; i++) {
+                            System.out.println(ja.get(i).toString());
+                        }
+                        //super.run(); //To change body of generated methods, choose Tools | Templates.
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                   TabuleiroNovo tabuleiro = new TabuleiroNovo();
+                   tabuleiro.setNomeSala(jList1.getSelectedValue());
+                   tabuleiro.setVisible(true);
+                   dispose();
                 }
 
             }.start();
@@ -305,7 +320,7 @@ public class Inicio extends javax.swing.JFrame {
         System.exit(0);
     }
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -329,7 +344,7 @@ public class Inicio extends javax.swing.JFrame {
                 new Inicio().setVisible(true);
             }
         });
-    }
+    }*/
 
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

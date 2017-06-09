@@ -29,7 +29,7 @@ public class Servidor {
             while (true) {
                 System.out.println("[Esperando conexão...]");
                 Socket cliente = servidor.accept();
-               // new Contador(idCliente++, cliente).start();
+               //new Contador(idCliente++, cliente).start();
                new Game(cliente).start();
             }
         } catch (Exception e) {

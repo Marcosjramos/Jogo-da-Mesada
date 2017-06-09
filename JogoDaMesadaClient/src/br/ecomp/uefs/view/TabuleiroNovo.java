@@ -5,6 +5,7 @@
  */
 package br.ecomp.uefs.view;
 
+import br.com.uefs.model.Player;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JButton;
@@ -15,14 +16,18 @@ import javax.swing.border.TitledBorder;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Marcos Ramos
  */
 public final class TabuleiroNovo extends JFrame {
+    //Player player;
+    //List<Player> jogadors;
     private final Container principal = getContentPane();
     private final JLabel jogador1;
     private final JLabel jogador2;
@@ -30,7 +35,7 @@ public final class TabuleiroNovo extends JFrame {
     private final JLabel jogador4;
     private final JLabel jogador5;
     private final JLabel jogador6;
-    private String nomeSala;
+     private String nomeSala;
     private javax.swing.JLabel jLabel4;
     private int p;
     
@@ -189,9 +194,9 @@ public final class TabuleiroNovo extends JFrame {
         }
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new TabuleiroNovo();
-    }
+    }*/
     
     private void setLayoutPainel1(){
         JPanel painel1 = new JPanel();
@@ -259,7 +264,7 @@ public final class TabuleiroNovo extends JFrame {
                 int Dado = random.nextInt(6) + 1; 
                  p=p+Dado;
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado); 
-
+                 // passar o valor do dado para todos os tabuleiros
                 if(p>=31){ 
                    p=1;
                    JOptionPane.showMessageDialog(null, "VOCÊ CHEGOU NO FIM DO MÊS");  

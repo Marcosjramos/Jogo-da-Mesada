@@ -29,7 +29,6 @@ public class ConexaoServidor extends Thread {
     //private JSONObject request;
     // private int op;
     private String salas;
-    private Sala sala;
     private Player player;
     private static ConexaoServidor uniqueInstance;
     public static ObjectOutputStream saida;
@@ -61,7 +60,7 @@ public class ConexaoServidor extends Thread {
         //conexao.close();
             String mensagem = "";
         
-           try (Socket conexao = new Socket("40.0.0.105", 1234);) {
+           try (Socket conexao = new Socket("127.0.0.1", 1234);) {
             System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
                //System.out.println(conexao.getInetAddress().getHostAddress());
             this.conexao = conexao;

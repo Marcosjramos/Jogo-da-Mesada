@@ -138,7 +138,7 @@ public class Game extends Thread {
                               for (Sala s : salas) {
                                 if (s.getId() == obj.getInt("sala")) {
                                     List<Player> jogdores = s.getPlayers();
-                                    if (jogdores.size() == 5) {
+                                    if (jogdores.size() >= 1) {
                                         gson = new Gson();
                                         saida.writeObject(gson.toJson(s.getPlayers()));
                                     }else {

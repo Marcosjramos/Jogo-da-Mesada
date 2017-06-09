@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 
 /**
  *
@@ -18,21 +19,66 @@ import java.util.logging.Logger;
  */
 public class ConexaoP2P extends Thread {
 
-    private Socket conexao; //conexão com cliente remoto
-   int i = 0;
-    public ConexaoP2P(Socket conexao) {
-        this.conexao = conexao;
+    public static ObjectOutputStream saida;
+    public static ObjectInputStream entrada;
+    private static ConexaoP2P uniqueInstance;
+    Socket conexao;
+
+    public ConexaoP2P() {
+
+    }
+
+    public static synchronized ConexaoP2P getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new ConexaoP2P();
+        }
+        return uniqueInstance;
     }
 
     public void run() {
-        System.out.printf(conexao.getInetAddress().toString());
-        try (ObjectInputStream entrada = new ObjectInputStream(conexao.getInputStream());
-                ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());) {
-            System.out.println("Esperando conexão");
-         
-         
-        } catch (IOException ex) {
-            Logger.getLogger(ConexaoP2P.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
+    
+     public String comunicacao(JSONObject j, String ip) throws IOException, ClassNotFoundException {
+        // String a = "{\"a\":\"a\"}";
+        //System.out.println(j.toString());
+       // saida.writeObject(j.toString());
+        //saida.flush();
+        //saida.close();
+        //System.out.println((String) entrada.readObject());
+        //conexao.close();
+            String mensagem = "";
+        
+           try (Socket conexao = new Socket(ip, 123);) {
+            System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
+               //System.out.println(conexao.getInetAddress().getHostAddress());
+            this.conexao = conexao;
+            //ConexaoServidor(saida, entrada)
+            saida = new ObjectOutputStream(conexao.getOutputStream());
+            entrada = new ObjectInputStream(conexao.getInputStream());
+            saida.flush();
+            
+            saida.writeObject(j.toString());
+            String msg = "";
+            do{
+                
+                msg = (String) entrada.readObject();
+                System.out.println(msg);
+// System.out.println(msg);
+                //return mensagem;
+                if (!msg.equals("EOT")) {
+                    mensagem = msg;
+                }
+            } while (!msg.equals("EOT"));
+            //saida.close();
+           // return mensagem;
+        } catch (IOException ex) {
+            Logger.getLogger(ConexaoServidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+           return mensagem;
+        //return data;
+// teste(j, saida, entrada);
+//System.out.println(data);
+    }
+
 }

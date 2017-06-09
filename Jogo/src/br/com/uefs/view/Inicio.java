@@ -223,12 +223,9 @@ public class Inicio extends JFrame {
             JSONObject j = new JSONObject();
             j.put("status", 2);
             j.put("nome", nomeSala);
-            //inserirSala(j.toString());
             
             String msg = con.comunicacao(j);
-            //System.out.println(msg);
-          //  inserirSala(msg);
-           
+  
           if (msg!=null) {
             JSONArray ja = new JSONArray(msg);
             limparSalas();
@@ -236,18 +233,13 @@ public class Inicio extends JFrame {
                 JSONObject jo = ja.getJSONObject(i);
                 
                  inserirSala("Sala: "+jo.getString("nome")+" jogadores: "+jo.get("n"));
-                 /*if(jo.getString("adm").equals(con.getId())) {
-                     
-                 }*/
-                //System.out.println(jo.toString());
             }
           } else {
               inserirSala("Cadastre uma sala");
           }
-          //  System.out.println(j.toString());
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
 
     
@@ -267,16 +259,10 @@ public class Inicio extends JFrame {
             jPanel1.add(label, BorderLayout.CENTER);
             jPanel1.repaint();
             jPanel1.revalidate();
-            /*
-            Tabuleiro tabuleiro = new Tabuleiro();
-            tabuleiro.setNomeSala(jList1.getSelectedValue());
-            tabuleiro.setVisible(true);
-            dispose();
-             */
         } else {
             JOptionPane.showMessageDialog(rootPane, "Antes de jogar, escolha ou das salas!");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
@@ -286,26 +272,13 @@ public class Inicio extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) throws JSONException, IOException, ClassNotFoundException {
-       // new ConexaoServidor().run();
-        //   new Inicio().setVisible(true);
-      
-    
         java.awt.EventQueue.invokeLater(new Runnable() {
-           
-            
             public void run() {
                  new Inicio().setVisible(true);
             }
         });
-        
-        
-        
-         // carregarSalas();
-    }
-    
-  
-    
 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

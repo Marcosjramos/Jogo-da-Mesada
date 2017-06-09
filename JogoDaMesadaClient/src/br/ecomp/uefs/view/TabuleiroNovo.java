@@ -99,38 +99,114 @@ public final class TabuleiroNovo extends JFrame {
         else if(x == 2){
            jogador1.setBounds(410, 104, 50, 50);
            JOptionPane.showMessageDialog(null,"CASA COMPRAS E ENTRETENIMENTOS ! " );
-           JOptionPane.showMessageDialog(null,"PUXE 1 COMPRAS E ENTRETENIMENTOS !");
+           JOptionPane.showMessageDialog(null,"PUXE 1 COMPRAS E ENTRETENIMENTOS ! ");
         }
         else if(x == 3){
             jogador1.setBounds(520, 104, 50, 50);
             String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
-            int v = Integer.parseInt(valor);
+            int v= Integer.parseInt(valor);
             JOptionPane.showMessageDialog(null, "VALOR INSERIDO COM SUCESSO: " + v);
         }
         else if(x == 4){
             jogador1.setBounds(630, 104, 50, 50);
+            boolean premio=false;
+           
             JOptionPane.showMessageDialog(null,"PRÊMIO!- RETIRE $5.000 DO BANCO !");
+            
+            premio=true;
+            
         }
         else if(x == 5){
             jogador1.setBounds(742, 104, 50, 50);
+            JOptionPane.showMessageDialog(null,"PRAIA DOMINGO!");
+            JOptionPane.showMessageDialog(null,"ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
+            String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
+            int p= Integer.parseInt(op);
+            if(p==1){
+               String rs = JOptionPane.showInputDialog(rootPane, "INSIARA O VALOR DO EMPRÉSTIMO A SER FEITO ", JOptionPane.QUESTION_MESSAGE);  
+               int S= Integer.parseInt(rs);
+            }else{
+                 
+             JOptionPane.showMessageDialog(null,"SEGUE  O JOGO !");    
+            }
         }
         else if(x == 6){
             jogador1.setBounds(854, 104, 50, 50);
+            JOptionPane.showMessageDialog(null,"CONCURSO DE BANDA  DE ARROCHA !");
+            
+            boolean opcao= false;
+            JOptionPane.showMessageDialog(null,"APERTE AQUI PARA RODAR O DADOS DA CASA!"); 
+            
+           do{
+             Random rand = new Random();
+             int dado = rand.nextInt(6) + 1; 
+            
+            if(dado==3){
+                 
+                 JOptionPane.showMessageDialog(null,"PARABÉNS VOCÊ ACABAR DE GANHAR $1000!");
+                 opcao=true;
+             }
+               
+           } while(opcao!=true);
+              
         }
         else if(x == 7){
             jogador1.setBounds(185, 218, 50, 50);
+            JOptionPane.showMessageDialog(null,"MARATONA BENEFICENTE!");
+            
+            JOptionPane.showMessageDialog(null,"TODO MUNDO VAI JOGAR O DADO AÍ ,\n E CADA UMA AÍ VAI  TER  QUE PAGARA $100  vezes x  \n QUE ELES SORTEAREM!");
+            
+            JOptionPane.showMessageDialog(null," FOI PESSOA !");
         }
         else if(x == 8){
             jogador1.setBounds(295, 218, 50, 50);
+             
+            JOptionPane.showMessageDialog(null," VENDE-SE ! \n NEGÓCIO DE OCASIÃO ! \n SEU POR APENAS $100 VEZES O NÚMERO QUE FOI SORETEADO");
+            int a= 8* 100;      
+            JOptionPane.showMessageDialog(null,"  NO CASO  :!"+ a+ " VALOR QUE O BANCO VAI PAGAR ");
+            JOptionPane.showMessageDialog(null," PUXE  1 CARTA  DE COMPRA E ENTRETENIMENTOS !");
         }
         else if(x == 9){
             jogador1.setBounds(410, 218, 50, 50);
+            JOptionPane.showMessageDialog(null,"AJUDE A FLORESTA AMAZÔNICA !");
+            JOptionPane.showMessageDialog(null,"ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
+            String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
+            int p= Integer.parseInt(op);
+            if(p==1){
+               String rs = JOptionPane.showInputDialog(rootPane, "INSIRA O VALOR DO EMPRÉSTIMO A SER FEITO ", JOptionPane.QUESTION_MESSAGE);  
+               int S= Integer.parseInt(rs);
+            }else{
+
+             JOptionPane.showMessageDialog(null,"SEGUE  O JOGO !");    
+             }
         }
         else if(x == 10){
             jogador1.setBounds(520, 218, 50, 50);
+            JOptionPane.showMessageDialog(null," LANCHONETE  !");
+            JOptionPane.showMessageDialog(null,"ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
+            String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
+            int p = Integer.parseInt(op);
+            if(p==1){
+               String rs = JOptionPane.showInputDialog(rootPane, "INSIRA O VALOR DO EMPRÉSTIMO A SER FEITO ", JOptionPane.QUESTION_MESSAGE);  
+               int S= Integer.parseInt(rs);
+            }else{
+                 
+             JOptionPane.showMessageDialog(null,"SEGUE  O JOGO !");    
+             }
         }
         else if(x == 11){
             jogador1.setBounds(630, 218, 50, 50);
+            JOptionPane.showMessageDialog(null,"  COMPRAS NO SHOPPING  !");
+            JOptionPane.showMessageDialog(null,"ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
+            String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
+            int p= Integer.parseInt(op);
+            if(p==1){
+               String rs = JOptionPane.showInputDialog(rootPane, "INSIRA O VALOR DO EMPRÉSTIMO A SER FEITO ", JOptionPane.QUESTION_MESSAGE);  
+               int S= Integer.parseInt(rs);
+            }else{
+                 
+             JOptionPane.showMessageDialog(null,"SEGUE  O JOGO !");    
+            }
         }
         else if(x == 12){
             jogador1.setBounds(742, 218, 50, 50);
@@ -261,15 +337,26 @@ public final class TabuleiroNovo extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Random random = new Random();
-                int Dado = random.nextInt(6) + 1; 
+                 
+                 int Dado = random.nextInt(6) + 1; 
+                 
                  p=p+Dado;
+<<<<<<< HEAD
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado); 
                  // passar o valor do dado para todos os tabuleiros
+=======
+                 
+                 JOptionPane.showMessageDialog(null,"SEU NÚMERO FOI: " + Dado); 
+                  
+>>>>>>> master
                 if(p>=31){ 
-                   p=1;
-                   JOptionPane.showMessageDialog(null, "VOCÊ CHEGOU NO FIM DO MÊS");  
-                   JOptionPane.showMessageDialog(null, "VOCÊ  VAI INICAR UM NOVO MÊS!");
+                    
+                   p=31;
+                   
+                   JOptionPane.showMessageDialog(null,"VOCÊ CHEGOU NO FIM DO MÊS");  
+                   
                    setPosicao(p);
+                   
                   }else{
                       
                      setPosicao(p); 

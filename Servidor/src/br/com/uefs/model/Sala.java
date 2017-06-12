@@ -19,6 +19,11 @@ public class Sala {
     private int id;
     private String nome;
 
+    @Override
+    public String toString() {
+        return "Sala{" + "players=" + players + ", adm=" + adm + ", id=" + id + ", nome=" + nome + '}';
+    }
+
     public String getAdm() {
         return adm;
     }

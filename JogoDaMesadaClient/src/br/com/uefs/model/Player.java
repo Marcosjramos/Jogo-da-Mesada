@@ -15,6 +15,24 @@ public class Player {
     private String ip;
     private int id;
     private int pino;
+    private float saldo;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
 
     public int getPino() {
         return pino;

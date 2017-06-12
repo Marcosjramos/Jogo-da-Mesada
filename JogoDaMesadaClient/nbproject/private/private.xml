@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/com/uefs/conexao/ConexaoServidor.java</file>
             <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/ecomp/uefs/view/TabuleiroNovo.java</file>
+            <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/com/uefs/model/Sala.java</file>
             <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/com/uefs/model/Player.java</file>
             <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/ecomp/uefs/view/Inicio.java</file>
             <file>file:/home/cassio/Projetos/Jogo-da-Mesada/JogoDaMesadaClient/src/br/com/uefs/conexao/ServidorLocal.java</file>

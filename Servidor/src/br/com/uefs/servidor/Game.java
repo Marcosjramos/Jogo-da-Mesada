@@ -28,7 +28,7 @@ public class Game extends Thread {
 
     private Socket conexao; //conexão com cliente remoto
 
-    public static final List<Sala> salas = new ArrayList<Sala>();
+    public static final List<Sala> salas = new ArrayList<>();
     public static final List<Player> jogadores = new ArrayList<>();
 
     public Game(Socket conexao) {
@@ -64,6 +64,7 @@ public class Game extends Thread {
                             for (Sala mSala : salas) {
                                 if (mSala.getAdm().equals(conexao.getInetAddress().toString())) {
                                     verificar = true;
+                                    //System.out.println(mSala.getAdm()+" / "+conexao.getInetAddress().toString());
                                     break;
                                 }
                             }
@@ -74,20 +75,21 @@ public class Game extends Thread {
                             s.setId(salas.size());
                             s.setNome(obj.getString("nome"));
                             //s.setAdm(obj.getString("sala"));
-                            Player p = new Player();
+                          //  Player p = new Player();
                             s.setAdm(conexao.getInetAddress().toString());
                             //p.setUsername(obj.getString("nome"));
-                            p.setIp(conexao.getInetAddress().toString());
-                            p.setUsername(obj.getString("username"));
-                            p.setId(obj.getInt("id"));
+                            //p.setIp(conexao.getInetAddress().toString());
+                            //p.setUsername(obj.getString("username"));
+                            //p.setId(obj.getInt("id"));
                             List<Player> players = new ArrayList<>();
-                            players.add(p);
+                            //players.add(p);
                             s.setPlayers(players);
                             salas.add(s);
-                            System.out.println(listarSalas().toString());
+                           // System.out.println(listarSalas().toString());
                             saida.writeObject(listarSalas().toString());
                             saida.writeObject("EOT");
                         } else {
+                            System.out.println("Entrou no else");
                             JSONObject j = new JSONObject();
                             j.put("status", 0);
                         }
@@ -118,6 +120,8 @@ public class Game extends Thread {
                                     if (jogdores.size() < 6) {
                                          Player player = new Player();
                                          player.setId(obj.getInt("id"));
+                                         player.setSaldo(3000);
+                                         player.setPino(jogdores.size() + 1);
                                          player.setIp(obj.getString("ip"));
                                          player.setUsername(obj.getString("username"));
                                          jogdores.add(player);
@@ -132,13 +136,16 @@ public class Game extends Thread {
                                 salas.remove(sala);
                                 salas.add(sala);
                             }
-                            System.out.println(salas.size());
+                            //System.out.println(salas.size());
                             saida.writeObject("1");
+                            
                         }else {
-                              for (Sala s : salas) {
+                            //Sala mSala = null;
+                            for (Sala s : salas) {
                                 if (s.getId() == obj.getInt("sala")) {
                                     List<Player> jogdores = s.getPlayers();
-                                    if (jogdores.size() >= 1) {
+                                    if (jogdores.size() >= 2) {
+                                         //mSala = s;
                                         gson = new Gson();
                                         saida.writeObject(gson.toJson(s.getPlayers()));
                                     }else {
@@ -168,9 +175,11 @@ public class Game extends Thread {
     public JSONArray listarSalas() throws JSONException {
         // Verificar salas
         JSONArray ja = new JSONArray();
-        JSONObject j = new JSONObject();
+        
         if (salas != null) {
             for (Sala s : salas) {
+                //System.out.println(s.toString());   
+                JSONObject j = new JSONObject();
                 j.put("nome", s.getNome());
                 j.put("id", s.getId());
                 j.put("n", s.getPlayers().size());
@@ -178,6 +187,7 @@ public class Game extends Thread {
                 ja.put(j);
             }
             //j.put("status", 1);
+            System.out.println(ja.toString());
             return ja;
             //saida.writeObject(obj.toString());
             //JSONArray json = new JSONArray(salas);

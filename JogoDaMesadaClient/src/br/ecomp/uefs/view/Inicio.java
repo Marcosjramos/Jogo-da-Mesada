@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -43,7 +45,7 @@ public class Inicio extends javax.swing.JFrame {
             String msg = null;
             try {
                 msg = con.comunicacao(j);
-                System.out.println(msg);
+                //System.out.println(msg);
                 if (msg != null) {
                     JSONArray ja = new JSONArray(msg);
                     if (ja.length() > 0) {
@@ -196,15 +198,15 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException {
         String nomeSala = JOptionPane.showInputDialog(rootPane, "Digite o nome da sala:", "Jogo da Mesada", JOptionPane.QUESTION_MESSAGE);
-        System.out.println(nomeSala);
+        //System.out.println(nomeSala);
         if (!nomeSala.equals("null")) {
 
             //inserirSala(nomeSala);
             JSONObject j = new JSONObject();
             j.put("status", 2);
             j.put("nome", nomeSala);
-            j.put("id", con.getPlayer().getId());
-            j.put("username", con.getPlayer().getUsername());
+            //j.put("id", con.getPlayer().getId());
+            //j.put("username", con.getPlayer().getUsername());
             String msg = con.comunicacao(j);
             dlm.clear();
             if (msg != null) {
@@ -283,18 +285,28 @@ public class Inicio extends javax.swing.JFrame {
 
                         //System.out.println("TESTE");
                     } while (s.equals("1"));
-                    
+                    List<Player> jogadores = new ArrayList<Player>();
                     try {
                         JSONArray ja = new JSONArray(s);
-                        for (int i=0; ja.length() > 0; i++) {
-                            System.out.println(ja.get(i).toString());
+                        for (int i=0; ja.length() > i; i++) {
+                               JSONObject jo = (JSONObject) ja.get(i);
+                               Player jogador = new Player();
+                               jogador.setId(jo.getInt("id"));
+                               jogador.setIp(jo.getString("ip"));
+                               jogador.setPino(jo.getInt("pino"));
+                               System.out.println("\n Pinos: "+ jogador.getPino());
+                               jogador.setUsername(jo.getString("username"));
+                               jogadores.add(jogador);
+                               if (jogador.getIp().equals(con.getPlayer().getIp())){
+                                   con.getPlayer().setPino(jogador.getPino());
+                               }
                         }
                         //super.run(); //To change body of generated methods, choose Tools | Templates.
                     } catch (JSONException ex) {
                         Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                   TabuleiroNovo tabuleiro = new TabuleiroNovo();
+                   TabuleiroNovo tabuleiro = new TabuleiroNovo(con.getPlayer(), jogadores);
                    tabuleiro.setNomeSala(jList1.getSelectedValue());
                    tabuleiro.setVisible(true);
                    dispose();

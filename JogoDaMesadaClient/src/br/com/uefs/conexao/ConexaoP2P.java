@@ -63,7 +63,7 @@ public class ConexaoP2P extends Thread {
                 
                 msg = (String) entrada.readObject();
                 System.out.println(msg);
-// System.out.println(msg);
+                //System.out.println(msg);
                 //return mensagem;
                 if (!msg.equals("EOT")) {
                     mensagem = msg;
@@ -77,8 +77,8 @@ public class ConexaoP2P extends Thread {
 
            return mensagem;
         //return data;
-// teste(j, saida, entrada);
-//System.out.println(data);
+       //teste(j, saida, entrada);
+       //System.out.println(data);
     }
 
 }

@@ -120,7 +120,7 @@ public class Game extends Thread {
                                     if (jogdores.size() < 6) {
                                          Player player = new Player();
                                          player.setId(obj.getInt("id"));
-                                         player.setSaldo(3000);
+                                        player.setSaldo(3000);
                                          player.setPino(jogdores.size() + 1);
                                          player.setIp(obj.getString("ip"));
                                          player.setUsername(obj.getString("username"));
@@ -144,7 +144,7 @@ public class Game extends Thread {
                             for (Sala s : salas) {
                                 if (s.getId() == obj.getInt("sala")) {
                                     List<Player> jogdores = s.getPlayers();
-                                    if (jogdores.size() >= 2) {
+                                    if (jogdores.size() >= 1) {
                                          //mSala = s;
                                         gson = new Gson();
                                         saida.writeObject(gson.toJson(s.getPlayers()));

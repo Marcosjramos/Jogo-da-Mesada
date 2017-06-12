@@ -34,7 +34,9 @@ public class ServidorLocal extends Thread {
                 ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());) {
                 System.out.println("Esperando conexão");
                 
-               System.out.println(entrada.toString());
+               System.out.println("Testando o envio de objetos"+ entrada.toString());
+               saida.writeObject("Tetano a saida");
+               saida.writeObject("EOT");
          
         } catch (IOException ex) {
             Logger.getLogger(ServidorLocal.class.getName()).log(Level.SEVERE, null, ex);

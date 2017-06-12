@@ -60,7 +60,7 @@ public class ConexaoServidor extends Thread {
         //conexao.close();
             String mensagem = "";
         
-           try (Socket conexao = new Socket("40.0.0.105", 1234);) {
+           try (Socket conexao = new Socket("192.168.1.116", 1234);) {
             System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
                //System.out.println(conexao.getInetAddress().getHostAddress());
             this.conexao = conexao;
@@ -75,22 +75,22 @@ public class ConexaoServidor extends Thread {
                 
                 msg = (String) entrada.readObject();
                 System.out.println(msg);
-// System.out.println(msg);
+                //System.out.println(msg);
                 //return mensagem;
                 if (!msg.equals("EOT")) {
                     mensagem = msg;
                 }
             } while (!msg.equals("EOT"));
-            //saida.close();
-           // return mensagem;
+                //saida.close();
+                // return mensagem;
         } catch (IOException ex) {
             Logger.getLogger(ConexaoServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
            return mensagem;
         //return data;
-// teste(j, saida, entrada);
-//System.out.println(data);
+       //teste(j, saida, entrada);
+       //System.out.println(data);
     }
         
     

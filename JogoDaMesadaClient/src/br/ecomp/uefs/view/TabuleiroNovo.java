@@ -5,6 +5,7 @@
  */
 package br.ecomp.uefs.view;
 
+import br.com.uefs.conexao.ConexaoP2P;
 import br.com.uefs.conexao.ServidorLocal;
 import br.com.uefs.model.Player;
 import java.awt.Color;
@@ -17,13 +18,19 @@ import javax.swing.border.TitledBorder;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -42,12 +49,13 @@ public final class TabuleiroNovo extends JFrame {
     private String nomeSala;
     private javax.swing.JLabel jLabel4;
     private int p;
-
+    ConexaoP2P con;
     static List<Player> jogadores;
 
     public TabuleiroNovo(Player player, List<Player> mJogadores) {
         super("JOGO DA MESADA");
-
+        
+        con = ConexaoP2P.getInstance();
         jogadores = mJogadores;
         this.player = player;
         System.out.println(this.player.getPino());
@@ -79,9 +87,7 @@ public final class TabuleiroNovo extends JFrame {
             System.out.println(p.getIp());
         }
 
-        new Thread() {
-            @Override
-            public void run() {
+    
                 try {
                     System.out.println("[Criando Servidor...]");
                     ServerSocket servidor = new ServerSocket(123);
@@ -98,8 +104,6 @@ public final class TabuleiroNovo extends JFrame {
                 // super.run(); //To change body of generated methods, choose Tools | Templates.
             }
 
-        };
-    }
 
     public void setNomeSala(String nomeSala) {
         this.nomeSala = nomeSala;
@@ -299,15 +303,16 @@ public final class TabuleiroNovo extends JFrame {
         principal.add(compra);
         principal.add(painel1);
     }
-
+    private javax.swing.JList<String> jList1;
+    
     private void setLayoutPainel2() {
 
         JPanel painel2 = new JPanel();
         JPanel branco = new JPanel();
         JButton jogar = new JButton("Jogar");
-        JButton sair = new JButton("Sair");
-        JLabel sala = new JLabel("Sala: ");
-        JLabel saldo = new JLabel("Seu saldo é: ");
+        JButton sair = new JButton("");
+        JLabel sala = new JLabel("Jogador: "+player.getUsername());
+        JLabel saldo = new JLabel("Seu saldo é: "+player.getSaldo());
         JLabel dado = new JLabel(new ImageIcon("img/dadoPreto.gif"));
 
         painel2.setBounds(980, 320, 190, 200);
@@ -323,7 +328,7 @@ public final class TabuleiroNovo extends JFrame {
 
         sair.setBounds(1015, 470, 120, 30);
         sair.setFont(new Font("Tahoma", 0, 15));
-
+        sair.setBackground(Color.yellow);
         sala.setBounds(1000, 330, 180, 50);
         sala.setFont(new Font("Tahoma", 0, 17));
 
@@ -350,7 +355,30 @@ public final class TabuleiroNovo extends JFrame {
                 p = p + Dado;
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado);
                 // passar o valor do dado para todos os tabuleiros
-
+                
+                player.setPosition(p);
+                jogadores.remove(player);
+                jogadores.add(player);
+                for (Player mPlayer: jogadores) {
+                    if (mPlayer.getId() != player.getId()) {
+                        StringTokenizer st = new StringTokenizer(mPlayer.getIp());
+                        String ip =  st.nextToken("/");
+                        System.out.println(ip);
+                        JSONObject j = new JSONObject();
+                        try {
+                            j.put("teste", "teste");
+                            String s = con.comunicacao(j, ip);
+                            System.out.println(s);
+                        } catch (IOException ex) {
+                            Logger.getLogger(TabuleiroNovo.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(TabuleiroNovo.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (JSONException ex) {
+                            Logger.getLogger(TabuleiroNovo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado);
 
                 if (p >= 31) {
@@ -381,7 +409,6 @@ public final class TabuleiroNovo extends JFrame {
                     }
 
                 } else {
-
                        switch (player.getPino()) {
                         case 1:
                             setPosicao(p, jogador1, 185,104);
@@ -403,7 +430,6 @@ public final class TabuleiroNovo extends JFrame {
                             break;
                     }
                 }
-
             }
         });
     }

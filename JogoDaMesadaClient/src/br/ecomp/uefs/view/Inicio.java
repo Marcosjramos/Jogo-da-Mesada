@@ -198,22 +198,18 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException {
         String nomeSala = JOptionPane.showInputDialog(rootPane, "Digite o nome da sala:", "Jogo da Mesada", JOptionPane.QUESTION_MESSAGE);
-        //System.out.println(nomeSala);
+        
         if (!nomeSala.equals("null")) {
 
-            //inserirSala(nomeSala);
             JSONObject j = new JSONObject();
             j.put("status", 2);
             j.put("nome", nomeSala);
-            //j.put("id", con.getPlayer().getId());
-            //j.put("username", con.getPlayer().getUsername());
             String msg = con.comunicacao(j);
             dlm.clear();
             if (msg != null) {
                 JSONArray ja = new JSONArray(msg);
                 for (int i = 0; i < ja.length(); i++) {
                     JSONObject jo = ja.getJSONObject(i);
-                    //  inserirSala("Sala: "+jo.getString("nome")+" jogadores: "+jo.get("n"));
                     inserirSala(jo.getInt("id") + " " + jo.getString("nome") + " jogadores: " + jo.get("n"));
                 }
             } else {
@@ -223,11 +219,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException, InterruptedException {
-        //System.out.println(jList1.getSelectedValue());
-        //  JSONObject j = new JSONObject((String) jList1.getSelectedValue());
-        //j.put("status", 4);
-        //j.put("", value).
-        //System.out.println(j.toString());
+        
         Font fonte = new Font("Tahoma", Font.BOLD, 24);
 
         if (jList1.getSelectedValue() != null) {
@@ -294,7 +286,8 @@ public class Inicio extends javax.swing.JFrame {
                                jogador.setId(jo.getInt("id"));
                                jogador.setIp(jo.getString("ip"));
                                jogador.setPino(jo.getInt("pino"));
-                               System.out.println("\n Pinos: "+ jogador.getPino());
+                               jogador.setSaldo(jo.getInt("saldo"));
+                               //System.out.println("\n Pinos: "+ jogador.getPino());
                                jogador.setUsername(jo.getString("username"));
                                jogadores.add(jogador);
                                if (jogador.getIp().equals(con.getPlayer().getIp())){
@@ -305,7 +298,7 @@ public class Inicio extends javax.swing.JFrame {
                     } catch (JSONException ex) {
                         Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+                    con.getPlayer().setSaldo(3000);
                    TabuleiroNovo tabuleiro = new TabuleiroNovo(con.getPlayer(), jogadores);
                    tabuleiro.setNomeSala(jList1.getSelectedValue());
                    tabuleiro.setVisible(true);
@@ -313,16 +306,7 @@ public class Inicio extends javax.swing.JFrame {
                 }
 
             }.start();
-
-            //System.out.println(s);
-            /* Tabuleiro tabuleiro = new Tabuleiro();
-            tabuleiro.setNomeSala(jList1.getSelectedValue());
-            tabuleiro.setVisible(true);
-            dispose();
-             */
-            //TabuleiroNovo tabuleiro = new TabuleiroNovo();
-            //tabuleiro.setNomeSala(jList1.getSelectedValue());
-            //tabuleiro.setVisible(true);
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Antes de jogar, escolha ou das salas!");
         }
@@ -331,32 +315,6 @@ public class Inicio extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
-
-    /*public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windowns".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-            }
-        });
-    }*/
 
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

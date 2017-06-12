@@ -15,8 +15,17 @@ public class Player {
     private String ip;
     private int id;
     private int pino;
-    private float saldo;
+    private int saldo;
     private int status;
+    private int position;
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public int getStatus() {
         return status;
@@ -25,13 +34,12 @@ public class Player {
     public void setStatus(int status) {
         this.status = status;
     }
-    
 
-    public float getSaldo() {
+    public int getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
 

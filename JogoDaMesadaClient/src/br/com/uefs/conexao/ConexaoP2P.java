@@ -39,13 +39,7 @@ public class ConexaoP2P extends Thread {
     }
     
      public String comunicacao(JSONObject j, String ip) throws IOException, ClassNotFoundException {
-        // String a = "{\"a\":\"a\"}";
-        //System.out.println(j.toString());
-       // saida.writeObject(j.toString());
-        //saida.flush();
-        //saida.close();
-        //System.out.println((String) entrada.readObject());
-        //conexao.close();
+         
             String mensagem = "";
         
            try (Socket conexao = new Socket(ip, 123);) {

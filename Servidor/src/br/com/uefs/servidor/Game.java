@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -75,7 +76,7 @@ public class Game extends Thread {
                             s.setId(salas.size());
                             s.setNome(obj.getString("nome"));
                             //s.setAdm(obj.getString("sala"));
-                          //  Player p = new Player();
+                            //  Player p = new Player();
                             s.setAdm(conexao.getInetAddress().toString());
                             //p.setUsername(obj.getString("nome"));
                             //p.setIp(conexao.getInetAddress().toString());
@@ -85,7 +86,7 @@ public class Game extends Thread {
                             //players.add(p);
                             s.setPlayers(players);
                             salas.add(s);
-                           // System.out.println(listarSalas().toString());
+                            // System.out.println(listarSalas().toString());
                             saida.writeObject(listarSalas().toString());
                             saida.writeObject("EOT");
                         } else {
@@ -106,7 +107,7 @@ public class Game extends Thread {
                         break;
                     case 4: // entrar na sala
                         //int id = obj.
-                        System.out.println(obj.toString());
+                        //System.out.println(obj.toString());
                         int espera = obj.getInt("espera");
                         if (espera != 1) {
                             // Player mPlay = null;
@@ -118,16 +119,19 @@ public class Game extends Thread {
                                         jogdores = new ArrayList<>();
                                     }
                                     if (jogdores.size() < 6) {
-                                         Player player = new Player();
-                                         player.setId(obj.getInt("id"));
+                                        StringTokenizer st = new StringTokenizer(obj.getString("ip"));
+                                        String ip = st.nextToken("/");
+                                        
+                                        Player player = new Player();
+                                        player.setId(obj.getInt("id"));
                                         player.setSaldo(3000);
-                                         player.setPino(jogdores.size() + 1);
-                                         player.setIp(obj.getString("ip"));
-                                         player.setUsername(obj.getString("username"));
-                                         jogdores.add(player);
-                                         s.setPlayers(jogdores);
-                                         sala = s;
-                                         break;
+                                        player.setPino(jogdores.size() + 1);
+                                        player.setIp(ip);
+                                        player.setUsername(obj.getString("username"));
+                                        jogdores.add(player);
+                                        s.setPlayers(jogdores);
+                                        sala = s;
+                                        break;
                                     }
                                 }
                                 //System.out.println(s.getId());
@@ -138,21 +142,21 @@ public class Game extends Thread {
                             }
                             //System.out.println(salas.size());
                             saida.writeObject("1");
-                            
-                        }else {
+
+                        } else {
                             //Sala mSala = null;
                             for (Sala s : salas) {
                                 if (s.getId() == obj.getInt("sala")) {
                                     List<Player> jogdores = s.getPlayers();
-                                    if (jogdores.size() >= 1) {
-                                         //mSala = s;
+                                    if (jogdores.size() >= 2) {
+                                        //mSala = s;
                                         gson = new Gson();
                                         saida.writeObject(gson.toJson(s.getPlayers()));
-                                    }else {
+                                    } else {
                                         saida.writeObject("1");
                                     }
                                 }
-                              }
+                            }
                         }
                         break;
                 }
@@ -162,7 +166,7 @@ public class Game extends Thread {
             }
 
             System.out.println(msg);
-            msg = "EOT1";
+            msg = "EOT";
 
             //    } while (!msg.equals("EOT"));
         } catch (IOException ex) {
@@ -175,7 +179,7 @@ public class Game extends Thread {
     public JSONArray listarSalas() throws JSONException {
         // Verificar salas
         JSONArray ja = new JSONArray();
-        
+
         if (salas != null) {
             for (Sala s : salas) {
                 //System.out.println(s.toString());   

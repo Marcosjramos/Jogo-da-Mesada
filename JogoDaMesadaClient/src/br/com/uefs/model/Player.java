@@ -6,7 +6,7 @@
 package br.com.uefs.model;
 
 /**
- *
+ * Objeto de instancia do usuário
  * @author cassio
  */
 public class Player {

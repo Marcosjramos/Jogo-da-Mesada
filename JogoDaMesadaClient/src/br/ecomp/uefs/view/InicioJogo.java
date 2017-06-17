@@ -120,11 +120,15 @@ public class InicioJogo extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
         /* se você usar jTextField1.getText() você captura  o valor digitado 
          na caisa de texto  e  pode guarda  ou ultilizar no que precisar */
-
-        
         //System.out.println(nome);
     }
-
+    /**
+     * Inicia a tela Inicial, onde o usuário terá as opções correspondete a criação de salas
+     * @param evt
+     * @throws JSONException
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException {
          String nome = jTextField1.getText();
        // System.out.println(nome);

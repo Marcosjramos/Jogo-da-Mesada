@@ -18,7 +18,10 @@ public class Servidor {
      * @param args the command line arguments
      */
 
-    
+    /**
+     * Metodo responsavel por iniciar o servidor
+     * @param args 
+     */
     public static void main(String[] args) {
         //int idCliente = 0;
         
@@ -29,7 +32,6 @@ public class Servidor {
             while (true) {
                 System.out.println("[Esperando conexão...]");
                 Socket cliente = servidor.accept();
-               //new Contador(idCliente++, cliente).start();
                new Game(cliente).start();
             }
         } catch (Exception e) {

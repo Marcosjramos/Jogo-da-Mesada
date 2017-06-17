@@ -290,7 +290,7 @@ public class Inicio extends javax.swing.JFrame {
                                //System.out.println("\n Pinos: "+ jogador.getPino());
                                jogador.setUsername(jo.getString("username"));
                                jogadores.add(jogador);
-                               if (jogador.getIp().equals(con.getPlayer().getIp())){
+                               if (jogador.getId() == con.getPlayer().getId()){
                                    con.getPlayer().setPino(jogador.getPino());
                                }
                         }
@@ -303,6 +303,11 @@ public class Inicio extends javax.swing.JFrame {
                    tabuleiro.setNomeSala(jList1.getSelectedValue());
                    tabuleiro.setVisible(true);
                    dispose();
+                    try {
+                        join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
             }.start();

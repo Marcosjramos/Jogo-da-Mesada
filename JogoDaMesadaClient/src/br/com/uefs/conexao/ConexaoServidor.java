@@ -20,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
+ *Classe responsavel pela comunicação com o servidor 
  * @author cassio
  */
 public class ConexaoServidor extends Thread {
@@ -50,17 +50,18 @@ public class ConexaoServidor extends Thread {
     public void run() {
     }
 
+    /**
+     * Metodo responsavel pela comunicação com o servidor remoto
+     * @param j JSONObject com os dados do usuário
+     * @return retorna uma string cons os valores requisitados
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public String comunicacao(JSONObject j) throws IOException, ClassNotFoundException {
-        // String a = "{\"a\":\"a\"}";
-        //System.out.println(j.toString());
-       // saida.writeObject(j.toString());
-        //saida.flush();
-        //saida.close();
-        //System.out.println((String) entrada.readObject());
-        //conexao.close();
+
             String mensagem = "";
         
-           try (Socket conexao = new Socket("192.168.1.116", 1234);) {
+           try (Socket conexao = new Socket("192.168.1.108", 1234);) {
             System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
                //System.out.println(conexao.getInetAddress().getHostAddress());
             this.conexao = conexao;
@@ -75,22 +76,15 @@ public class ConexaoServidor extends Thread {
                 
                 msg = (String) entrada.readObject();
                 System.out.println(msg);
-                //System.out.println(msg);
-                //return mensagem;
                 if (!msg.equals("EOT")) {
                     mensagem = msg;
                 }
             } while (!msg.equals("EOT"));
-                //saida.close();
-                // return mensagem;
         } catch (IOException ex) {
             Logger.getLogger(ConexaoServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
            return mensagem;
-        //return data;
-       //teste(j, saida, entrada);
-       //System.out.println(data);
     }
         
     
@@ -98,42 +92,12 @@ public class ConexaoServidor extends Thread {
     public Player getPlayer() {
         return player;
     }
-
-    /*public void buscarSalas() throws IOException, JSONException, ClassNotFoundException {
-    //Carregar salas
-    System.out.println("TESTE");
-    JSONObject j = new JSONObject();
-    j.put("status", 1); // buscar salas
-    System.out.println(j.toString());
-    saida.writeObject(j.toString());
-    String data = (String) entrada.readObject();
-    setSalas(data);
-    // System.out.println(getSalas());
-    //data = null;
-    }*/
-    /*public String teste(JSONObject rt) throws JSONException {
-    rt.put("DFSDf", "TESE");
-    return rt.toString();
-    }*/
-    /*public String teste(int op) throws JSONException, IOException, ClassNotFoundException{
-    switch(getOp()){
-    case 1:
-    j.put("status", 0); // buscar salas
-    saida.writeObject(j.toString());
-    String data = (String) entrada.readObject();
-    return data;
-    //i.inserirSala(data);
-    }
-    return null;
-    }*/
     public void setPlayer(Player player) {
         this.player = player;
     }
-
     public String getSalas() {
         return salas;
     }
-
     public void setSalas(String salas) {
         this.salas = salas;
     }

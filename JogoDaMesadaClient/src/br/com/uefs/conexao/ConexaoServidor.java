@@ -8,6 +8,7 @@ package br.com.uefs.conexao;
 
 import br.com.uefs.model.Player;
 import br.com.uefs.model.Sala;
+import br.ecomp.uefs.view.TabuleiroNovo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -61,7 +62,7 @@ public class ConexaoServidor extends Thread {
 
             String mensagem = "";
         
-           try (Socket conexao = new Socket("192.168.1.108", 1234);) {
+           try (Socket conexao = new Socket("40.0.0.105", 1234);) {
             System.out.printf("[Conexao aceita de: %s]\n", conexao.getInetAddress().toString());
                //System.out.println(conexao.getInetAddress().getHostAddress());
             this.conexao = conexao;
@@ -86,8 +87,6 @@ public class ConexaoServidor extends Thread {
 
            return mensagem;
     }
-        
-    
     
     public Player getPlayer() {
         return player;

@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -40,39 +41,47 @@ public final class TabuleiroNovo extends JFrame {
 
     public static Player player;
     private final Container principal = getContentPane();
-    private final JLabel jogador1;
-    private final JLabel jogador2;
-    private final JLabel jogador3;
-    private final JLabel jogador4;
-    private final JLabel jogador5;
-    private final JLabel jogador6;
+    private static JLabel jogador1;
+    private static JLabel jogador2;
+    private static JLabel jogador3;
+    private static JLabel jogador4;
+    private static JLabel jogador5;
+    private static JLabel jogador6;
     private String nomeSala;
     private javax.swing.JLabel jLabel4;
+    public static final List<Player> jogadores = new ArrayList<>();
     private int p;
     ConexaoP2P con;
-    ServidorLocal scon;
-    //static List<Player> jogadores;
+    static TabuleiroNovo uniqueInstance;
+    //ServidorLocal scon;
 
+    //static List<Player> jogadores;
+    /*public static synchronized TabuleiroNovo getInstance() {
+        
+        if (uniqueInstance == null) {
+            uniqueInstance = new TabuleiroNovo();
+        }
+        return uniqueInstance;
+    }*/
     public TabuleiroNovo(Player mPlayer, List<Player> mJogadores) {
         super("JOGO DA MESADA");
 
         con = ConexaoP2P.getInstance();
 
         player = mPlayer;
-        scon = ServidorLocal.getInstance();
-        scon.setJogadores(mJogadores);
-        // System.out.println(this.player.getPino());
+        jogadores.addAll(mJogadores);
+
         this.p = 0;
         this.principal.setLayout(null);
         this.principal.setBackground(Color.WHITE);
 
         //for (int i=0; i < 6; i ++) {
-        this.jogador1 = new JLabel(new ImageIcon("img/amarela.png"));
-        this.jogador2 = new JLabel(new ImageIcon("img/pink.png"));
-        this.jogador3 = new JLabel(new ImageIcon("img/branca.png"));
-        this.jogador4 = new JLabel(new ImageIcon("img/laranja.png"));
-        this.jogador5 = new JLabel(new ImageIcon("img/azul.png"));
-        this.jogador6 = new JLabel(new ImageIcon("img/vermelha.png"));
+        jogador1 = new JLabel(new ImageIcon("img/amarela.png"));
+        jogador2 = new JLabel(new ImageIcon("img/pink.png"));
+        jogador3 = new JLabel(new ImageIcon("img/branca.png"));
+        jogador4 = new JLabel(new ImageIcon("img/laranja.png"));
+        jogador5 = new JLabel(new ImageIcon("img/azul.png"));
+        jogador6 = new JLabel(new ImageIcon("img/vermelha.png"));
 
         this.init();
         this.setLayoutPainel1();
@@ -86,51 +95,57 @@ public final class TabuleiroNovo extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-            
-                try {
-                    System.out.println("[Criando Servidor...]");
-                    ServerSocket servidor = new ServerSocket(1803);
-                    System.out.println("[Servidor operando na porta 1803]");
-                    while (true) {
-                        System.out.println("[Esperando conexão...]");
-                        Socket cliente = servidor.accept();
-                        
-                        new ServidorLocal(cliente).start();
-                    }
-                } catch (Exception e) {
-                    System.out.println("Erro!\n" + e.getMessage());
-                }
+        try {
+            System.out.println("[Criando Servidor...]");
+            ServerSocket servidor = new ServerSocket(1803);
+            System.out.println("[Servidor operando na porta 1803]");
 
-            
+            while (true) {
+                //
+                System.out.println("[Esperando conexão...]");
+                Socket cliente = servidor.accept();
+                new ServidorLocal(cliente).start();
+            }
+        } catch (Exception e) {
+            System.out.println("Erro!\n" + e.getMessage());
+        }
 
-      /*  new Thread() {
+        // atualizar();
+    }
+
+    public void atualizar() {
+        new Thread() {
             @Override
             public void run() {
-                for (Player jog : scon.jogadores) {
-                    System.out.println("TABULEIRO: " + jog.getUsername());
-                    switch (jog.getPino()) {
-                        case 1:
-                            setPosition(jog.getPosition(), jogador1, 185, 104);
-                            break;
-                        case 2:
-                            setPosition(jog.getPosition(), jogador2, 185, 139);
-                            break;
-                        case 3:
-                            setPosition(jog.getPosition(), jogador3, 185, 174);
-                            break;
-                        case 4:
-                            setPosition(jog.getPosition(), jogador4, 240, 104);
-                            break;
-                        case 5:
-                            setPosition(jog.getPosition(), jogador5, 240, 139);
-                            break;
-                        case 6:
-                            setPosition(jog.getPosition(), jogador6, 240, 174);
-                            break;
+                while (true) {
+                    for (Player jog : getJogadores()) {
+                        switch (jog.getPino()) {
+                            case 1:
+                                setPosition(jog.getPosition(), jogador1, 185, 104);
+                                System.out.println(jog.getPosition() + " " + jog.getPino() + " " + jog.getUsername());
+                                break;
+                            case 2:
+                                setPosition(jog.getPosition(), jogador2, 185, 139);
+                                System.out.println(jog.getPosition() + " " + jog.getPino() + " " + jog.getUsername());
+                                break;
+                            case 3:
+                                setPosition(jog.getPosition(), jogador3, 185, 174);
+                                System.out.println(jog.getPosition() + " " + jog.getPino() + " " + jog.getUsername());
+                                break;
+                            case 4:
+                                setPosition(jog.getPosition(), jogador4, 240, 104);
+                                break;
+                            case 5:
+                                setPosition(jog.getPosition(), jogador5, 240, 139);
+                                break;
+                            case 6:
+                                setPosition(jog.getPosition(), jogador6, 240, 174);
+                                break;
+                        }
                     }
                 }
             }
-        }.start();*/
+        }.start();
     }
 
     public void setNomeSala(String nomeSala) {
@@ -154,7 +169,7 @@ public final class TabuleiroNovo extends JFrame {
         principal.add(jogador6);
     }
 
-   public void setPosicao(int mP, JLabel jogador, int x, int y) {
+    public void setPosicao(int mP, JLabel jogador, int x, int y) {
         if (mP == 0) {
             jogador.setBounds(x, y, 50, 50);
         }
@@ -162,14 +177,14 @@ public final class TabuleiroNovo extends JFrame {
             jogador.setBounds(x + 110, y, 50, 50);
             JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
             JOptionPane.showMessageDialog(null, "PUXE 1 CARTA DO TIPO CORREIOS!");
-            
+
         } else if (mP == 2) {
             jogador.setBounds(x + 225, y, 50, 50);
             JOptionPane.showMessageDialog(null, "CASA COMPRAS E ENTRETENIMENTOS ! ");
             JOptionPane.showMessageDialog(null, "PUXE 1 COMPRAS E ENTRETENIMENTOS ! ");
         } else if (mP == 3) {
             jogador.setBounds(x - 335, y, 50, 50);
-            String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
+            String valor = JOptionPane.showInputDialog(rootPane, "INSIRA $100", JOptionPane.QUESTION_MESSAGE);
             int v = Integer.parseInt(valor);
             JOptionPane.showMessageDialog(null, "VALOR INSERIDO COM SUCESSO: " + v);
         } else if (mP == 4) {
@@ -303,11 +318,11 @@ public final class TabuleiroNovo extends JFrame {
             jogador.setBounds(x + 110, y + 369, 50, 50);
         } else if (mP == 30) {
             jogador.setBounds(x + 225, y + 369, 50, 50);
-            jogador.setBounds(x+557, y+114, 50, 50);
-             JOptionPane.showMessageDialog(null, "CASA COMPRAS E ENTRETENIMENTOS ! ");
+            jogador.setBounds(x + 557, y + 114, 50, 50);
+            JOptionPane.showMessageDialog(null, "CASA COMPRAS E ENTRETENIMENTOS ! ");
             JOptionPane.showMessageDialog(null, "PUXE 2 COMPRAS E ENTRETENIMENTOS ! ");
         } else if (mP == 13) {
-            jogador.setBounds(x+669, y+114, 50, 50);
+            jogador.setBounds(x + 669, y + 114, 50, 50);
             JOptionPane.showMessageDialog(null, "PRAIA DOMINGO!");
             JOptionPane.showMessageDialog(null, "ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
             String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
@@ -320,19 +335,19 @@ public final class TabuleiroNovo extends JFrame {
                 JOptionPane.showMessageDialog(null, "SEGUE  O JOGO !");
             }
         } else if (mP == 14) {
-            jogador.setBounds(x, y+226, 50, 50);
+            jogador.setBounds(x, y + 226, 50, 50);
             JOptionPane.showMessageDialog(null, "MARATONA BENEFICENTE!");
 
             JOptionPane.showMessageDialog(null, "TODO MUNDO VAI JOGAR O DADO AÍ ,\n E CADA UMA AÍ VAI  TER  QUE PAGARA $100  vezes x  \n QUE ELES SORTEAREM!");
 
             JOptionPane.showMessageDialog(null, " FOI PESSOA !");
-            
+
         } else if (mP == 15) {
-            jogador.setBounds(x+110,y+226, 50, 50);
-             JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
+            jogador.setBounds(x + 110, y + 226, 50, 50);
+            JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
             JOptionPane.showMessageDialog(null, "PUXE 3 CARTAs DO TIPO CORREIOS!");
         } else if (mP == 16) {
-            jogador.setBounds(x+225, y+226, 50, 50);
+            jogador.setBounds(x + 225, y + 226, 50, 50);
             JOptionPane.showMessageDialog(null, " LANCHONETE  !");
             JOptionPane.showMessageDialog(null, "ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
             String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
@@ -345,7 +360,7 @@ public final class TabuleiroNovo extends JFrame {
                 JOptionPane.showMessageDialog(null, "SEGUE  O JOGO !");
             }
         } else if (mP == 17) {
-            jogador.setBounds(x+335, y+226, 50, 50);
+            jogador.setBounds(x + 335, y + 226, 50, 50);
             JOptionPane.showMessageDialog(null, "CONCURSO DE BANDA  DE ARROCHA !");
 
             boolean opcao = false;
@@ -363,18 +378,18 @@ public final class TabuleiroNovo extends JFrame {
 
             } while (opcao != true);
         } else if (mP == 18) {
-            jogador.setBounds(x+445, y+226, 50, 50);
-             boolean premio = false;
+            jogador.setBounds(x + 445, y + 226, 50, 50);
+            boolean premio = false;
 
             JOptionPane.showMessageDialog(null, "PRÊMIO!- RETIRE $5.000 DO BANCO !");
         } else if (mP == 19) {
-            jogador.setBounds(x+557, y+226, 50, 50);
-             String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
+            jogador.setBounds(x + 557, y + 226, 50, 50);
+            String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
             int v = Integer.parseInt(valor);
             JOptionPane.showMessageDialog(null, "VALOR INSERIDO COM SUCESSO: " + v);
         } else if (mP == 20) {
-            jogador.setBounds(x+669, y+226, 50, 50);
-             JOptionPane.showMessageDialog(null, "PRAIA DOMINGO!");
+            jogador.setBounds(x + 669, y + 226, 50, 50);
+            JOptionPane.showMessageDialog(null, "PRAIA DOMINGO!");
             JOptionPane.showMessageDialog(null, "ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
             String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
             int p = Integer.parseInt(op);
@@ -387,7 +402,7 @@ public final class TabuleiroNovo extends JFrame {
             }
             //
         } else if (mP == 21) {
-            jogador.setBounds(x, y+338, 50, 50);
+            jogador.setBounds(x, y + 338, 50, 50);
             JOptionPane.showMessageDialog(null, "CONCURSO DE BANDA  DE ARROCHA !");
 
             boolean opcao = false;
@@ -405,43 +420,42 @@ public final class TabuleiroNovo extends JFrame {
 
             } while (opcao != true);
         } else if (mP == 22) {
-            jogador.setBounds(x+110, y+338, 50, 50);
+            jogador.setBounds(x + 110, y + 338, 50, 50);
             JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
             JOptionPane.showMessageDialog(null, "PUXE 1 CARTA DO TIPO CORREIOS!");
         } else if (mP == 23) {
-            jogador.setBounds(x+225, y+338, 50, 50);
-             JOptionPane.showMessageDialog(null, "MARATONA BENEFICENTE!");
+            jogador.setBounds(x + 225, y + 338, 50, 50);
+            JOptionPane.showMessageDialog(null, "MARATONA BENEFICENTE!");
 
             JOptionPane.showMessageDialog(null, "TODO MUNDO VAI JOGAR O DADO AÍ ,\n E CADA UMA AÍ VAI  TER  QUE PAGARA $100  vezes x  \n QUE ELES SORTEAREM!");
 
             JOptionPane.showMessageDialog(null, " FOI PESSOA !");
         } else if (mP == 24) {
-            jogador.setBounds(x+335, y+338, 50, 50);
-             String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
+            jogador.setBounds(x + 335, y + 338, 50, 50);
+            String valor = JOptionPane.showInputDialog(rootPane, "INSIARA $100", JOptionPane.QUESTION_MESSAGE);
             int v = Integer.parseInt(valor);
             JOptionPane.showMessageDialog(null, "VALOR INSERIDO COM SUCESSO: " + v);
         } else if (mP == 25) {
-            jogador.setBounds(x+445, y+338, 50, 50);
-             JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
+            jogador.setBounds(x + 445, y + 338, 50, 50);
+            JOptionPane.showMessageDialog(null, "CASA CORREIOS  ! ");
             JOptionPane.showMessageDialog(null, "PUXE 2 CARTAS DO TIPO CORREIOS!");
         } else if (mP == 26) {
-            jogador.setBounds(x+557, y+338, 50, 50);
-            
+            jogador.setBounds(x + 557, y + 338, 50, 50);
+
             player.getSaldo();
             int valorTotal;
             JOptionPane.showMessageDialog(null, " OBA!, DIA DA MESADA -PARE!");
-            JOptionPane.showMessageDialog(null, " VOCÊS  TEM $ !"+    player.getSaldo());
+            JOptionPane.showMessageDialog(null, " VOCÊS  TEM $ !" + player.getSaldo());
             JOptionPane.showMessageDialog(null, " PORÉM , VOCÊ TEVE \n QUE PAGA  SUA  DIVIDA COM JUROS CASO VOCÊ TENHA");
-            if(player.getSaldo()<=0){
-                valorTotal=player.getSaldo()*35/100;
-            }else{
-                 valorTotal=0;
+            if (player.getSaldo() <= 0) {
+                valorTotal = player.getSaldo() * 35 / 100;
+            } else {
+                valorTotal = 0;
             }
-            
-            
-            JOptionPane.showMessageDialog(null, " VOCÊ  VAI RECEBER $!"+ valorTotal);
+
+            JOptionPane.showMessageDialog(null, " VOCÊ  VAI RECEBER $!" + valorTotal);
         } else if (mP == 27) {
-            jogador.setBounds(x+669, y+338, 50, 50);
+            jogador.setBounds(x + 669, y + 338, 50, 50);
             JOptionPane.showMessageDialog(null, " LANCHONETE  !");
             JOptionPane.showMessageDialog(null, "ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
             String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
@@ -454,8 +468,8 @@ public final class TabuleiroNovo extends JFrame {
                 JOptionPane.showMessageDialog(null, "SEGUE  O JOGO !");
             }
         } else if (mP == 28) {
-            jogador.setBounds(x, y+369, 50, 50);
-             JOptionPane.showMessageDialog(null, "PRAIA DOMINGO!");
+            jogador.setBounds(x, y + 369, 50, 50);
+            JOptionPane.showMessageDialog(null, "PRAIA DOMINGO!");
             JOptionPane.showMessageDialog(null, "ADICIONE A QUANTIA QUE ESTÁ EM SORTE GRANDE! \n CASO NÃO TENHA DINHEIRO UM EMPRESTIMO .");
             String op = JOptionPane.showInputDialog(rootPane, "1-FAZER EMPRESTIMO  \n 2- NÃO FAZER EMPRESTINO ", JOptionPane.QUESTION_MESSAGE);
             int p = Integer.parseInt(op);
@@ -467,14 +481,14 @@ public final class TabuleiroNovo extends JFrame {
                 JOptionPane.showMessageDialog(null, "SEGUE  O JOGO !");
             }
         } else if (mP == 29) {
-            jogador.setBounds(x+110, y+369, 50, 50);
-             JOptionPane.showMessageDialog(null, " VENDE-SE ! \n NEGÓCIO DE OCASIÃO ! \n SEU POR APENAS $100 VEZES O NÚMERO QUE FOI SORETEADO");
+            jogador.setBounds(x + 110, y + 369, 50, 50);
+            JOptionPane.showMessageDialog(null, " VENDE-SE ! \n NEGÓCIO DE OCASIÃO ! \n SEU POR APENAS $100 VEZES O NÚMERO QUE FOI SORETEADO");
             int a = 8 * 100;
             JOptionPane.showMessageDialog(null, "  NO CASO  :!" + a + " VALOR QUE O BANCO VAI PAGAR ");
             JOptionPane.showMessageDialog(null, " PUXE  1 CARTA  DE COMPRA E ENTRETENIMENTOS !");
         } else if (mP == 30) {
-            jogador.setBounds(x+225, y+369, 50, 50);
-             boolean premio = false;
+            jogador.setBounds(x + 225, y + 369, 50, 50);
+            boolean premio = false;
 
             JOptionPane.showMessageDialog(null, "PRÊMIO!- RETIRE $5.000 DO BANCO !");
         } else if (mP == 31) {
@@ -483,69 +497,222 @@ public final class TabuleiroNovo extends JFrame {
     }
 
     public void setPosition(int mP, JLabel jogador, int x, int y) {
-        if (mP == 0) {
-            jogador.setBounds(x, y, 50, 50);
+        System.out.println(mP);
+        switch (mP) {
+            case 0:
+                jogador.setBounds(x, y, 50, 50);
+                break;
+            case 1:
+                jogador.setBounds(x + 110, y, 50, 50);
+                break;
+            case 2:
+                jogador.setBounds(x + 225, y, 50, 50);
+                break;
+            case 3:
+                jogador.setBounds(x + 335, y, 50, 50);
+                break;
+            case 4:
+                jogador.setBounds(x + 445, y, 50, 50);
+                break;
+            case 5:
+                jogador.setBounds(x + 557, y, 50, 50);
+                break;
+            case 6:
+                jogador.setBounds(x + 669, y, 50, 50);
+                break;
+            case 7:
+                jogador.setBounds(x, y + 114, 50, 50);
+                break;
+            case 8:
+                jogador.setBounds(x + 110, y + 114, 50, 50);
+                break;
+            case 9:
+                jogador.setBounds(x + 225, y + 114, 50, 50);
+                break;
+            case 11:
+                jogador.setBounds(x + 630, y + 114, 50, 50);
+                break;
+            case 12:
+                jogador.setBounds(x + 557, y + 114, 50, 50);
+                break;
+            case 13:
+                jogador.setBounds(x + 669, y + 114, 50, 50);
+                break;
+            case 14:
+                jogador.setBounds(x, y + 226, 50, 50);
+                break;
+            case 15:
+                jogador.setBounds(x + 110, y + 226, 50, 50);
+                break;
+            case 16:
+                jogador.setBounds(x + 225, y + 226, 50, 50);
+                break;
+            case 17:
+                jogador.setBounds(x + 335, y + 226, 50, 50);
+                break;
+            case 18:
+                jogador.setBounds(x + 445, y + 226, 50, 50);
+                break;
+            case 19:
+                jogador.setBounds(x + 557, y + 226, 50, 50);
+                break;
+            case 20:
+                jogador.setBounds(x + 669, y + 226, 50, 50);
+                break;
+            case 21:
+                jogador.setBounds(x, y + 338, 50, 50);
+                break;
+            case 22:
+                jogador.setBounds(x + 110, y + 338, 50, 50);
+                break;
+            case 23:
+                jogador.setBounds(x + 225, y + 338, 50, 50);
+                break;
+            case 24:
+                jogador.setBounds(x + 335, y + 338, 50, 50);
+                break;
+            case 25:
+                jogador.setBounds(x + 445, y + 338, 50, 50);
+                break;
+            case 26:
+                jogador.setBounds(x + 557, y + 338, 50, 50);
+                break;
+            case 27:
+                jogador.setBounds(x + 669, y + 338, 50, 50);
+                break;
+            case 28:
+                jogador.setBounds(x, y + 369, 50, 50);
+                break;
+            case 29:
+                jogador.setBounds(x + 110, y + 369, 50, 50);
+                break;
+            case 30:
+                jogador.setBounds(x + 225, y + 369, 50, 50);
+                break;
+            case 31:
+                jogador.setBounds(x + 335, y + 369, 50, 50);
+                break;
         }
-        if (mP == 1) {
-            jogador.setBounds(x + 110, y, 50, 50);
-        } else if (mP == 2) {
-            jogador.setBounds(x + 225, y, 50, 50);
-        } else if (mP == 3) {
-            jogador.setBounds(x - 335, y, 50, 50);
-        } else if (mP == 4) {
-            jogador.setBounds(x + 445, y, 50, 50);
-        } else if (mP == 5) {
-            jogador.setBounds(x + 557, y, 50, 50);
-        } else if (mP == 6) {
-            jogador.setBounds(x + 669, y, 50, 50);
-        } else if (mP == 7) {
-            jogador.setBounds(x, y + 114, 50, 50);
-        } else if (mP == 8) {
-            jogador.setBounds(x + 110, y + 114, 50, 50);
-        } else if (mP == 9) {
-            jogador.setBounds(x + 225, y + 114, 50, 50);
-        } else if (mP == 11) {
-            jogador.setBounds(x + 630, y + 114, 50, 50);
-        } else if (mP == 12) {
-            jogador.setBounds(x + 557, y + 114, 50, 50);
-        } else if (mP == 13) {
-            jogador.setBounds(x + 669, y + 114, 50, 50);
-        } else if (mP == 14) {
-            jogador.setBounds(x, y + 226, 50, 50);
-        } else if (mP == 15) {
-            jogador.setBounds(x + 110, y + 226, 50, 50);
-        } else if (mP == 16) {
-            jogador.setBounds(x + 225, y + 226, 50, 50);
-        } else if (mP == 17) {
-            jogador.setBounds(x + 335, y + 226, 50, 50);
-        } else if (mP == 18) {
-            jogador.setBounds(x + 445, y + 226, 50, 50);
-        } else if (mP == 19) {
-            jogador.setBounds(x + 557, y + 226, 50, 50);
-        } else if (mP == 20) {
-            jogador.setBounds(x + 669, y + 226, 50, 50);
-        } else if (mP == 21) {
-            jogador.setBounds(x, y + 338, 50, 50);
-        } else if (mP == 22) {
-            jogador.setBounds(x + 110, y + 338, 50, 50);
-        } else if (mP == 23) {
-            jogador.setBounds(x + 225, y + 338, 50, 50);
-        } else if (mP == 24) {
-            jogador.setBounds(x + 335, y + 338, 50, 50);
-        } else if (mP == 25) {
-            jogador.setBounds(x + 445, y + 338, 50, 50);
-        } else if (mP == 26) {
-            jogador.setBounds(x + 557, y + 338, 50, 50);
-        } else if (mP == 27) {
-            jogador.setBounds(x + 669, y + 338, 50, 50);
-        } else if (mP == 28) {
-            jogador.setBounds(x, y + 369, 50, 50);
-        } else if (mP == 29) {
-            jogador.setBounds(x + 110, y + 369, 50, 50);
-        } else if (mP == 30) {
-            jogador.setBounds(x + 225, y + 369, 50, 50);
-        } else if (mP == 31) {
-            jogador.setBounds(x + 335, y + 369, 50, 50);
+
+    }
+
+    public static void setPosition2(int mP, int select, int x, int y) {
+        System.out.println(mP);
+        JLabel jogador = null;
+        switch (select) {
+            case 1:
+                jogador = jogador1;
+                break;
+                 case 2:
+                jogador = jogador2;
+                break;
+                 case 3:
+                jogador = jogador3;
+                break;
+                 case 4:
+                jogador = jogador4;
+                break;
+                 case 5:
+                jogador = jogador5;
+                break;
+                 case 6:
+                jogador = jogador6;
+                break;
+        }
+        switch (mP) {
+            case 0:
+                jogador.setBounds(x, y, 50, 50);
+                break;
+            case 1:
+                jogador.setBounds(x + 110, y, 50, 50);
+                break;
+            case 2:
+                jogador.setBounds(x + 225, y, 50, 50);
+                break;
+            case 3:
+                jogador.setBounds(x + 335, y, 50, 50);
+                break;
+            case 4:
+                jogador.setBounds(x + 445, y, 50, 50);
+                break;
+            case 5:
+                jogador.setBounds(x + 557, y, 50, 50);
+                break;
+            case 6:
+                jogador.setBounds(x + 669, y, 50, 50);
+                break;
+            case 7:
+                jogador.setBounds(x, y + 114, 50, 50);
+                break;
+            case 8:
+                jogador.setBounds(x + 110, y + 114, 50, 50);
+                break;
+            case 9:
+                jogador.setBounds(x + 225, y + 114, 50, 50);
+                break;
+            case 11:
+                jogador.setBounds(x + 630, y + 114, 50, 50);
+                break;
+            case 12:
+                jogador.setBounds(x + 557, y + 114, 50, 50);
+                break;
+            case 13:
+                jogador.setBounds(x + 669, y + 114, 50, 50);
+                break;
+            case 14:
+                jogador.setBounds(x, y + 226, 50, 50);
+                break;
+            case 15:
+                jogador.setBounds(x + 110, y + 226, 50, 50);
+                break;
+            case 16:
+                jogador.setBounds(x + 225, y + 226, 50, 50);
+                break;
+            case 17:
+                jogador.setBounds(x + 335, y + 226, 50, 50);
+                break;
+            case 18:
+                jogador.setBounds(x + 445, y + 226, 50, 50);
+                break;
+            case 19:
+                jogador.setBounds(x + 557, y + 226, 50, 50);
+                break;
+            case 20:
+                jogador.setBounds(x + 669, y + 226, 50, 50);
+                break;
+            case 21:
+                jogador.setBounds(x, y + 338, 50, 50);
+                break;
+            case 22:
+                jogador.setBounds(x + 110, y + 338, 50, 50);
+                break;
+            case 23:
+                jogador.setBounds(x + 225, y + 338, 50, 50);
+                break;
+            case 24:
+                jogador.setBounds(x + 335, y + 338, 50, 50);
+                break;
+            case 25:
+                jogador.setBounds(x + 445, y + 338, 50, 50);
+                break;
+            case 26:
+                jogador.setBounds(x + 557, y + 338, 50, 50);
+                break;
+            case 27:
+                jogador.setBounds(x + 669, y + 338, 50, 50);
+                break;
+            case 28:
+                jogador.setBounds(x, y + 369, 50, 50);
+                break;
+            case 29:
+                jogador.setBounds(x + 110, y + 369, 50, 50);
+                break;
+            case 30:
+                jogador.setBounds(x + 225, y + 369, 50, 50);
+                break;
+            case 31:
+                jogador.setBounds(x + 335, y + 369, 50, 50);
+                break;
         }
     }
 
@@ -570,53 +737,53 @@ public final class TabuleiroNovo extends JFrame {
         principal.add(correio);
         principal.add(compra);
         principal.add(painel1);
-    
-         compra.addActionListener(new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent e) {  
-                   
-                  Random random = new Random();
 
-                  int num = random.nextInt(6) + 1;
-                  
-                  if(num==1){
-                      JOptionPane.showMessageDialog(null, " PUXE MAIS  UM CARTA  !");
-                  
-                  }else if(num==2){
-                       JOptionPane.showMessageDialog(null, " VOCÊ  VAI GANHAR $200  EM SUA  CONTA \n  VAI CURTI A VIDA !");
-                      
-                  }else if(num==3){
-                      JOptionPane.showMessageDialog(null, " JOGUE  O DADO MAIS  UMA VEZ  !");
-                      
-                  }else if(num==4){
-                     JOptionPane.showMessageDialog(null, " INFROME  O VALOR  QUE  VOCÊ  QUE VENDER  SUAS  PROPRIEDADE!");
-                       String m = JOptionPane.showInputDialog(rootPane, " INSIRA  AQUI O VALOR : ", JOptionPane.QUESTION_MESSAGE);
-                       int d = Integer.parseInt(m);
-                      
-                  }else if(num==5){
-                      JOptionPane.showMessageDialog(null, " VOCÊ É FORÇADA A FAZER UM EMPRESTIMO  APARTI  DE $100!");
-                       String emp  = JOptionPane.showInputDialog(rootPane, " INSIRA  AQUI O VALOR : ", JOptionPane.QUESTION_MESSAGE);
-                       int banco = Integer.parseInt(emp);
-                       
-                  }else if(num==6){
-                      JOptionPane.showMessageDialog(null, " AVANCE  UMA CASA  !");
-                      p = p +1;
+        compra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-                       switch (player.getPino()) {
+                Random random = new Random();
+
+                int num = random.nextInt(6) + 1;
+
+                if (num == 1) {
+                    JOptionPane.showMessageDialog(null, " PUXE MAIS  UM CARTA  !");
+
+                } else if (num == 2) {
+                    JOptionPane.showMessageDialog(null, " VOCÊ  VAI GANHAR $200  EM SUA  CONTA \n  VAI CURTI A VIDA !");
+
+                } else if (num == 3) {
+                    JOptionPane.showMessageDialog(null, " JOGUE  O DADO MAIS  UMA VEZ  !");
+
+                } else if (num == 4) {
+                    JOptionPane.showMessageDialog(null, " INFROME  O VALOR  QUE  VOCÊ  QUE VENDER  SUAS  PROPRIEDADE!");
+                    String m = JOptionPane.showInputDialog(rootPane, " INSIRA  AQUI O VALOR : ", JOptionPane.QUESTION_MESSAGE);
+                    int d = Integer.parseInt(m);
+
+                } else if (num == 5) {
+                    JOptionPane.showMessageDialog(null, " VOCÊ É FORÇADA A FAZER UM EMPRESTIMO  APARTI  DE $100!");
+                    String emp = JOptionPane.showInputDialog(rootPane, " INSIRA  AQUI O VALOR : ", JOptionPane.QUESTION_MESSAGE);
+                    int banco = Integer.parseInt(emp);
+
+                } else if (num == 6) {
+                    JOptionPane.showMessageDialog(null, " AVANCE  UMA CASA  !");
+                    p = p + 1;
+
+                    switch (player.getPino()) {
                         case 1:
-                            setPosicao(p, jogador1, 185,104);
+                            setPosicao(p, jogador1, 185, 104);
                             break;
                         case 2:
-                            setPosicao(p, jogador2, 185,139);
+                            setPosicao(p, jogador2, 185, 139);
                             break;
                         case 3:
-                            setPosicao(p, jogador3, 185,174);
+                            setPosicao(p, jogador3, 185, 174);
                             break;
                         case 4:
-                            setPosicao(p, jogador4, 240,104);
+                            setPosicao(p, jogador4, 240, 104);
                             break;
                         case 5:
-                            setPosicao(p, jogador5, 240,139);
+                            setPosicao(p, jogador5, 240, 139);
                             break;
                         case 6:
                             setPosicao(p, jogador6, 240, 174);
@@ -624,65 +791,62 @@ public final class TabuleiroNovo extends JFrame {
                     }
 
                 } else {
-                       switch (player.getPino()) {
+                    switch (player.getPino()) {
                         case 1:
-                            setPosicao(p, jogador1, 185,104);
+                            setPosicao(p, jogador1, 185, 104);
                             break;
                         case 2:
-                            setPosicao(p, jogador2, 185,139);
+                            setPosicao(p, jogador2, 185, 139);
                             break;
                         case 3:
-                            setPosicao(p, jogador3, 185,174);
+                            setPosicao(p, jogador3, 185, 174);
                             break;
                         case 4:
-                            setPosicao(p, jogador4, 240,104);
+                            setPosicao(p, jogador4, 240, 104);
                             break;
                         case 5:
-                            setPosicao(p, jogador5, 240,139);
+                            setPosicao(p, jogador5, 240, 139);
                             break;
                         case 6:
                             setPosicao(p, jogador6, 240, 174);
                             break;
                     }
                 }
-                      
- 
-              
+
             }
         });
         correio.addActionListener(new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent e) {  
-                   Random random = new Random();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Random random = new Random();
 
-                  int num = random.nextInt(6) + 1;
-                  
-                  if(num==1){
-                      JOptionPane.showMessageDialog(null, " PUXE MAIS  UMA CARTA !");
-                  
-                  }else if(num==2){
-                      JOptionPane.showMessageDialog(null, "DINHEIRO EXTRA \n VOCÊ VAI RECEBER O VALOR  DE SUA CASA EM DINHEIRO !");
-                      String name  = JOptionPane.showInputDialog(rootPane, "PARA ISSO INDICO O NOME  DO JOGADOR QUE VAI PAGAR \n ESTE VALOR A VOCÊ  * 100", JOptionPane.QUESTION_MESSAGE);
-                      
-                  }else if(num==3){
-                        JOptionPane.showMessageDialog(null, " VOCÊ VAI PODER JOGAR MAIS  UM VEZ O DADO !");
-                      
-                  }else if(num==4){
-                      JOptionPane.showMessageDialog(null, "PAGUE  A SEU VIZINHO AGORA  \n  VOCÊ PAGAR  AO SEU VIZINHO QUE VOCÊ DEVE \n  O VALOR INDICADOR PELO NUMERO QUE SUA CASA  * $100!");
-                      
-                  }else if(num==5){
-                      String vl  = JOptionPane.showInputDialog(rootPane, " INSIRA  O VALOR  QUE  VOCÊ  VAI VENDER SUA  CARTA :", JOptionPane.QUESTION_MESSAGE);
-                       int R$ = Integer.parseInt(vl);
-                       
-                  }else if(num==6){
-                     String fsa  = JOptionPane.showInputDialog(rootPane, "DOAÇÃO VOCÊ VAI DOAR O VALOR PRESENTE  EM QUEM TIROU SORTE GRANDE\n  QUE É  DE INSIRA  AI :", JOptionPane.QUESTION_MESSAGE);
-                     int ba = Integer.parseInt(fsa);
-                  }
-       
+                int num = random.nextInt(6) + 1;
+
+                if (num == 1) {
+                    JOptionPane.showMessageDialog(null, " PUXE MAIS  UMA CARTA !");
+
+                } else if (num == 2) {
+                    JOptionPane.showMessageDialog(null, "DINHEIRO EXTRA \n VOCÊ VAI RECEBER O VALOR  DE SUA CASA EM DINHEIRO !");
+                    String name = JOptionPane.showInputDialog(rootPane, "PARA ISSO INDICO O NOME  DO JOGADOR QUE VAI PAGAR \n ESTE VALOR A VOCÊ  * 100", JOptionPane.QUESTION_MESSAGE);
+
+                } else if (num == 3) {
+                    JOptionPane.showMessageDialog(null, " VOCÊ VAI PODER JOGAR MAIS  UM VEZ O DADO !");
+
+                } else if (num == 4) {
+                    JOptionPane.showMessageDialog(null, "PAGUE  A SEU VIZINHO AGORA  \n  VOCÊ PAGAR  AO SEU VIZINHO QUE VOCÊ DEVE \n  O VALOR INDICADOR PELO NUMERO QUE SUA CASA  * $100!");
+
+                } else if (num == 5) {
+                    String vl = JOptionPane.showInputDialog(rootPane, " INSIRA  O VALOR  QUE  VOCÊ  VAI VENDER SUA  CARTA :", JOptionPane.QUESTION_MESSAGE);
+                    int R$ = Integer.parseInt(vl);
+
+                } else if (num == 6) {
+                    String fsa = JOptionPane.showInputDialog(rootPane, "DOAÇÃO VOCÊ VAI DOAR O VALOR PRESENTE  EM QUEM TIROU SORTE GRANDE\n  QUE É  DE INSIRA  AI :", JOptionPane.QUESTION_MESSAGE);
+                    int ba = Integer.parseInt(fsa);
+                }
+
             }
         });
-           
-        
+
     }
     //private javax.swing.JList<String> jList1;
 
@@ -738,11 +902,10 @@ public final class TabuleiroNovo extends JFrame {
 //<<<<<<< HEAD
                 // passar o valor do dado para todos os tabuleiros
 
-
                 player.setPosition(p);
-                scon.jogadores.remove(player);
-                scon.jogadores.add(player);
-                for (Player mPlayer : scon.jogadores) {
+                jogadores.remove(player);
+                jogadores.add(player);
+                for (Player mPlayer : jogadores) {
                     System.out.println(mPlayer.getIp());
                     if (mPlayer.getId() != player.getId()) {
                         StringTokenizer st = new StringTokenizer(mPlayer.getIp());
@@ -762,11 +925,11 @@ public final class TabuleiroNovo extends JFrame {
                         }
                     }
                 }
- 
+
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado);
-                if(Dado==6){
-                    
-                   JOptionPane.showMessageDialog(null,"VOCÊ CAIU NA SORTE GRANDE! \n VOCÊ VAI PODER PUXA 1 CARTAS COMPRAS \n  E PODE VAI GANHAR TODO O DINHEIRO QUE TEM NO BANCO! ");
+                if (Dado == 6) {
+
+                    JOptionPane.showMessageDialog(null, "VOCÊ CAIU NA SORTE GRANDE! \n VOCÊ VAI PODER PUXA 1 CARTAS COMPRAS \n  E PODE VAI GANHAR TODO O DINHEIRO QUE TEM NO BANCO! ");
                 }
 
                 JOptionPane.showMessageDialog(null, "SEU NÚMERO FOI: " + Dado);
@@ -836,6 +999,10 @@ public final class TabuleiroNovo extends JFrame {
         JLabel tab = new JLabel(new ImageIcon("img/tabuleiro.jpg"));
         tab.setBounds(180, 25, 785, 645);
         principal.add(tab);
+    }
+
+    public static List<Player> getJogadores() {
+        return jogadores;
     }
 
 }

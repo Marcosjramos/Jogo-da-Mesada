@@ -18,7 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Classe do servidor do cliente 
+ * Classe do servidor do cliente
+ *
  * @author cassio
  */
 public class ServidorLocal extends Thread {
@@ -28,15 +29,19 @@ public class ServidorLocal extends Thread {
     private static ServidorLocal uniqueInstance;
     public static List<Player> jogadores;
     int i = 0;
+    TabuleiroNovo tab;
 
     public ServidorLocal(Socket conexao) {
         this.conexao = conexao;
+//        tab = TabuleiroNovo.getInstance();
     }
+
     /**
      * Cria uma instancia unica do socket que fica recebendo as cartas
-     * @return 
+     *
+     * @return
      */
-      public static synchronized ServidorLocal getInstance() {
+    public static synchronized ServidorLocal getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new ServidorLocal();
         }
@@ -66,14 +71,48 @@ public class ServidorLocal extends Thread {
                 p.setPosition(j.getInt("position"));
                 p.setSaldo(j.getInt("saldo"));
                 p.setUsername(j.getString("username"));
-                //jogadores = TabuleiroNovo.getJogadores();
+                
+                //tab.setPosition(p.getPino(), jogador, i, i);
+                jogadores = TabuleiroNovo.jogadores;
                 jogadores.remove(p);
                 jogadores.add(p);
-                System.out.println("OBJETO "+j.toString());
+                int x = 0;
+                int y = 0;
+                switch (p.getPino()) {
+                    case 1:
+                        x = 185;
+                        y = 104;
+                        break;
+                    case 2:
+                        x = 185;
+                        y = 139;
+                        break;
+                    case 3:
+                        x = 185;
+                        y = 174;
+                        break;
+                    case 4:
+                        x = 240;
+                        y = 104;
+                        break;
+                    case 5:
+                        x = 240;
+                        y = 139;
+                        break;
+                    case 6:
+                        x = 240;
+                        y = 174;
+                        break;
+                }
+                 System.out.println("Usuario: " + p.toString());
+                System.out.println("OBJETO " + j.toString());
+                TabuleiroNovo.setPosition2(p.getPosition(), p.getPino(), x, y);
+               
+                saida.writeObject("obj");
                 //TabuleiroNovo.setJogadores(jogadores);
             }
-               //saida.writeObject("Tetano a saida");
-               //saida.writeObject("EOT");
+            //saida.writeObject("Tetano a saida");
+            //saida.writeObject("EOT");
         } catch (IOException ex) {
             Logger.getLogger(ServidorLocal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {

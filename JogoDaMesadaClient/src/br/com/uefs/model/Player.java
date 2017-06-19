@@ -74,6 +74,12 @@ public class Player {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" + "username=" + username + ", ip=" + ip + ", id=" + id + ", pino=" + pino + ", saldo=" + saldo + ", status=" + status + ", position=" + position + '}';
+    }
+    
     
     
 }

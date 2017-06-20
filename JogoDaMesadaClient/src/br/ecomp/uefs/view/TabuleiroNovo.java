@@ -68,7 +68,7 @@ public final class TabuleiroNovo extends JFrame {
     /**  a seguir está o construtor da tela Tabuleiro Novo onde vai ocorrer o jogo e que receber os seguintes parâmetros :
      * @param : o jogador em  questão . <br/>
      * @param : a lista de todos o jodaores que vão jogado jogo. <br/>
-     *  assim  no construtor vai  estbalecer  uma coneção  entre os jogadores  , e vai instanciar a tela do jogo 
+     * assim no construtor vai estbalecer uma coneção  entre os jogadores , e vai instanciar a tela do jogo 
      */
     public TabuleiroNovo(Player mPlayer, List<Player> mJogadores) {
         super("JOGO DA MESADA");
@@ -119,6 +119,7 @@ public final class TabuleiroNovo extends JFrame {
 
         // atualizar();
     }
+    /** a seguir vamos ter primira thread, que vai receber dados de cada jogador para poder atualizar a exibição de cada jogador no tabuleiro. <br/> */
 
     public void atualizar() {
         new Thread() {
@@ -154,12 +155,12 @@ public final class TabuleiroNovo extends JFrame {
             }
         }.start();
     }
-
+      /** a função a seguir realizar a instanciação da tela do tabuleiro. <br/>  */ 
     public void setNomeSala(String nomeSala) {
         this.nomeSala = nomeSala;
         jLabel4.setText(nomeSala);
     }
-
+    /** a função a seguir vai ser responsável posição inicial de cada bolinha que representa os jogadores no tabuleiro. <br>  */
     public void init() {
         jogador1.setBounds(185, 104, 50, 50);
         jogador2.setBounds(185, 139, 50, 50);
@@ -175,6 +176,12 @@ public final class TabuleiroNovo extends JFrame {
         principal.add(jogador5);
         principal.add(jogador6);
     }
+
+    /** A função a seguir serve para poder alterar a posição de cada jogador recebendo alguns parâmetros que são:
+    * @param: posição que vai ser a posições o jogador vai. <br/>
+    * @param: jogador em questão que vai poder alterar sua posição. <br/>  
+    * @param: as coordenadas   de alteração do jogador . <br>
+    * e assim  vai poder  manipular a posição do jogado no tabuleiro . <br/>*/
 
     public void setPosicao(int mP, JLabel jogador, int x, int y) {
         if (mP == 0) {
@@ -502,7 +509,7 @@ public final class TabuleiroNovo extends JFrame {
             jogador.setBounds(x + 335, y + 369, 50, 50);
         }
     }
-
+     /** altera a posição  do jagador no tabuleiro no jogo . <br>*/
     public void setPosition(int mP, JLabel jogador, int x, int y) {
         System.out.println(mP);
         switch (mP) {
@@ -602,7 +609,7 @@ public final class TabuleiroNovo extends JFrame {
         }
 
     }
-
+  /** altera a posição  do jagador determinado no tabuleiro no jogo . <br>*/
     public static void setPosition2(int mP, int select, int x, int y) {
         System.out.println(mP);
         JLabel jogador = null;
@@ -726,6 +733,7 @@ public final class TabuleiroNovo extends JFrame {
     /*public static void main(String[] args) {
         new TabuleiroNovo();
     }*/
+    /**colocar na tela os componentes que necessários  para o jogo e  criar as ações  de de alguns botões na do jogo .*/
     private void setLayoutPainel1() {
         JPanel painel1 = new JPanel();
         JButton correio = new JButton("Cartas Correio");
@@ -856,6 +864,8 @@ public final class TabuleiroNovo extends JFrame {
 
     }
     //private javax.swing.JList<String> jList1;
+    //
+    /** inser  na tela  mais  alguns  imagens  e algns componetes e criando ação mais importente  do jogo que é do dado. <br> */
 
     private void setLayoutPainel2() {
 

@@ -35,7 +35,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         dlm = new DefaultListModel();
-        con = ConexaoServidor.getInstance(); // starta o jogador 
+        con = ConexaoServidor.getInstance(); /** starta o jogador */
         //con.start();
 
         JSONObject j = new JSONObject();
@@ -70,34 +70,34 @@ public class Inicio extends javax.swing.JFrame {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**a função a seguir serve para instância a tela em questão. <br> */
     public void setNomeSala(String nome) {
         this.nome = nome;
         jLabel4.setText(nome);
     }
-
+    /** a função privada  a seguir serve  para criar os objetos  que  serão  usados para criar os compomentes  que serão usados para a interface poder realizar o que foi projetada.<br> */
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();// para  inseir  da   lista de sala 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane(); /** criação  do scroll  . <br> */
+        jList1 = new javax.swing.JList<>(); /** para  inseir  da  lista de sala. <br> */
+        jButton1 = new javax.swing.JButton(); /** criação  de um botão que será  usado pela  inteface . <br> */
+        jButton2 = new javax.swing.JButton(); /** criação  de um botão que será  usado pela  inteface . <br> */
+        jButton3 = new javax.swing.JButton(); /** criação  de um botão que será  usado pela  inteface . <br> */
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Jogo da Mesada");
+        setTitle("Jogo da Mesada"); /** set o nome da tela  */
 
         jLabel1.setFont(new java.awt.Font("Ravie", 0, 36)); // NOI18N
-        jLabel1.setText("Jogo da Mesada");
+        jLabel1.setText("Jogo da Mesada");/** set o nome da interface  */
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 24)));
 
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setFont(new java.awt.Font("Verdana", 1, 18));
-        jButton1.setText("Cadastrar Sala");
+        jButton1.setFont(new java.awt.Font("Verdana", 1, 18));/**  determina  a fonte  e  o tamanho da letra  */
+        jButton1.setText("Cadastrar Sala");  /**  colocar o nome da botão  */
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -112,8 +112,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Verdana", 1, 18));
-        jButton2.setText("Entrar na Sala");
+        jButton2.setFont(new java.awt.Font("Verdana", 1, 18));/**  determina  a fonte  e  o tamanho da letra  */
+        jButton2.setText("Entrar na Sala"); /**  colocar o nome da botão  */
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -130,13 +130,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1); /** criação do scroll para aguarda  muitos cadastros de sala caso necessários */
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING) 
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)/** determina  o tamanho da caixa onde o scroll vai funcionar */
                                 .addContainerGap())
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
@@ -148,7 +148,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE) /** dertemina o  tamanho da tela  */
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButton1)
@@ -156,8 +156,8 @@ public class Inicio extends javax.swing.JFrame {
                                 .addContainerGap())
         );
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("Sair");
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); /**  determina  a fonte  e  o tamanho da letra  */
+        jButton3.setText("Sair"); /**  colocar o nome da botão  */
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -195,7 +195,7 @@ public class Inicio extends javax.swing.JFrame {
                                 .addContainerGap()));
         pack();
     }
-
+    /** a função  privada a seguir  serve para ação de um  botão e  junto  com um poup que vai capturar informação que usuario  vai inserir. <br> */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException {
         String nomeSala = JOptionPane.showInputDialog(rootPane, "Digite o nome da sala:", "Jogo da Mesada", JOptionPane.QUESTION_MESSAGE);
         
@@ -217,7 +217,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         }
     }
-
+  /** a função  privada a seguir  serve para ação de um  botão ,colocar uma  mensagem informado  ao jogador para aguardar  após o cadastro
+  , determina  o tamanho da tela   e  assim também   instancia  a thread responsável  pela comunicação  entre hosts  e  sevidor . <br> */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws JSONException, IOException, ClassNotFoundException, InterruptedException {
         
         Font fonte = new Font("Tahoma", Font.BOLD, 24);
@@ -316,7 +317,7 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Antes de jogar, escolha ou das salas!");
         }
     }
-
+       /**a função a seguir  serve  para detrminação a ação  de sair da tela  no caso fechar  a tela . <br> */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
@@ -330,6 +331,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jLabel4;
 
+
+    /** a função a seguir  serve para  poder instanciar a tela  em questão. <br>*/
     private void inserirSala(String nomeSala) {
         dlm.addElement(nomeSala);
         jList1.setModel(dlm);

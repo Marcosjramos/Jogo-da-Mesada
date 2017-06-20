@@ -36,21 +36,22 @@ import org.json.JSONObject;
 /**
  *
  * @author Marcos Ramos
+ * 
  */
 public final class TabuleiroNovo extends JFrame {
 
-    public static Player player;
-    private final Container principal = getContentPane();
-    private static JLabel jogador1;
-    private static JLabel jogador2;
-    private static JLabel jogador3;
-    private static JLabel jogador4;
-    private static JLabel jogador5;
-    private static JLabel jogador6;
-    private String nomeSala;
-    private javax.swing.JLabel jLabel4;
-    public static final List<Player> jogadores = new ArrayList<>();
-    private int p;
+    public static Player player;/** variável que será responsável por representar o jogador sua atribuições no jogo no caso no tabuleiro. <br/ >*/
+    private final Container principal = getContentPane();/** variável que representar o container principal no caso a tela de exibição.<br/> */
+    private static JLabel jogador1;/** variável que representar bolinha que simbolizar o jogador um (primeiro a entrar no jogo ) no tabuleiro. <br/ >*/
+    private static JLabel jogador2;/** variável que representar bolinha que simbolizar o jogador dois (segundo a entrar no jogo ) no tabuleiro. <br/ >*/
+    private static JLabel jogador3;/** variável que representar bolinha que simbolizar o jogador três (terceiro a entrar no jogo ) no tabuleiro. <br/ >*/
+    private static JLabel jogador4;/** variável que representar bolinha que simbolizar o jogador quatro(quarto a entrar no jogo ) no tabuleiro. <br/ >*/
+    private static JLabel jogador5;/** variável que representar bolinha que simbolizar o jogador cinco (quinto a entrar no jogo ) no tabuleiro. <br/ >*/
+    private static JLabel jogador6;/** variável que representar bolinha que simbolizar o jogador seis (sexto a entrar no jogo ) no tabuleiro. <br/ >*/
+    private String nomeSala; /** variável que serve para poder chamara a tela em questão onde vai acontecer o jogo. <br/>  */
+    private javax.swing.JLabel jLabel4;/** variável serve para poder andar e conjunto com a variável nomesala para ocorrer à exibição da tela onde vai ocorrer o jogo. <br/>  */
+    public static final List<Player> jogadores = new ArrayList<>();/** vai armazenar  uma coleção de jogadores do jogo. <br/> */
+    private int p;/** está variável serve para informará a posição que o jogador vai parar depois de jogado dado. <br/> */
     ConexaoP2P con;
     static TabuleiroNovo uniqueInstance;
     //ServidorLocal scon;
@@ -63,6 +64,12 @@ public final class TabuleiroNovo extends JFrame {
         }
         return uniqueInstance;
     }*/
+
+    /**  a seguir está o construtor da tela Tabuleiro Novo onde vai ocorrer o jogo e que receber os seguintes parâmetros :
+     * @param : o jogador em  questão . <br/>
+     * @param : a lista de todos o jodaores que vão jogado jogo. <br/>
+     *  assim  no construtor vai  estbalecer  uma coneção  entre os jogadores  , e vai instanciar a tela do jogo 
+     */
     public TabuleiroNovo(Player mPlayer, List<Player> mJogadores) {
         super("JOGO DA MESADA");
 
